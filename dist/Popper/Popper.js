@@ -64,6 +64,7 @@ const PopperTitle_1 = __importDefault(require("./PopperTitle"));
 const PopperContent_1 = __importDefault(require("./PopperContent"));
 const theme_1 = require("../theme");
 const Divider_1 = __importStar(require("../Divider"));
+const Tooltip_1 = __importDefault(require("../Tooltip"));
 var PopperTestIds;
 (function (PopperTestIds) {
     PopperTestIds["POPPER_TITLE"] = "popperTitle";
@@ -103,11 +104,10 @@ const Popper = (_a) => {
         } }),
         (headerChildren)
             && (react_1.default.createElement(PopperTitle_1.default, { "data-testid": PopperTestIds.POPPER_TITLE },
-                react_1.default.createElement(material_1.Grid, { container: true },
-                    react_1.default.createElement(material_1.Grid, { item: true },
-                        react_1.default.createElement(material_1.Grid, null, headerChildren),
-                        react_1.default.createElement(IconButton_1.default, { "aria-label": PopperTestIds.POPPER_TITLE, onClick: (e) => { onClose(e, 'backdropClick'); }, "data-testid": PopperTestIds.POPPER_CLOSE_ICON },
-                            react_1.default.createElement(close_1.default, null)))))),
+                react_1.default.createElement(material_1.Grid, null, headerChildren),
+                react_1.default.createElement(Tooltip_1.default, { title: props.closeIconTooltip || '' },
+                    react_1.default.createElement(IconButton_1.default, { "aria-label": props.closeIconTooltip ? props.closeIconTooltip : PopperTestIds.POPPER_TITLE, onClick: (e) => { onClose(e, 'backdropClick'); }, "data-testid": PopperTestIds.POPPER_CLOSE_ICON },
+                        react_1.default.createElement(close_1.default, null))))),
         (!hideSubHeader)
             && (react_1.default.createElement(react_1.default.Fragment, null,
                 react_1.default.createElement(Divider_1.default, { type: Divider_1.DividerTypes.SECONDARY }),
