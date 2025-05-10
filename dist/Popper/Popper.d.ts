@@ -11,6 +11,7 @@ export type PopperProps = MuiPopperProps & {
     subHeaderChildren?: React.ReactNode;
     onClose: Function;
     hideSubHeader?: boolean;
+    closeIconTooltip?: string;
 };
 declare const Popper: {
     ({ ...props }: PopperProps): React.JSX.Element;

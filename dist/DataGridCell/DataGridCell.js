@@ -113,7 +113,7 @@ const DataGridCell = (props) => {
                     height: '20px',
                     width: '20px',
                 } }) }, row[`avatar-${colDef.field}`])),
-        props.value && (react_1.default.createElement(material_1.Grid, { ref: valueRef, sx: Object.assign({ alignItems: 'flex-start', display: 'flex', flexDirection: 'column', marginRight: '8px', minWidth: '0', overflow: 'hidden' }, (isAlignRight && {
+        props.value && (react_1.default.createElement(material_1.Grid, { ref: valueRef, sx: Object.assign({ alignItems: 'normal', textAlign: 'left', display: 'flex', flexDirection: 'column', marginRight: '8px', minWidth: '0', overflow: 'hidden' }, (isAlignRight && {
                 marginLeft: `${colDef.iconStart || colDef.avatar ? '' : 'auto'}`,
                 marginRight: '0',
                 paddingLeft: '8px',
