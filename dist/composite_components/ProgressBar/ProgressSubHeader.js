@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024 HCL America Inc.                                          *
+ * Copyright 2024, 2025 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -50,7 +50,7 @@ const Button_1 = __importStar(require("../../Button"));
  * @returns {JSX.Element} The rendered component.
  */
 const ProgressSubHeader = (props) => {
-    const { totalSize, totalTime, literals, cancelAll, } = props;
+    const { totalSize, totalTime, literals, cancelAll, isCancelAllDisabled, } = props;
     return (react_1.default.createElement(material_1.Box, { sx: (theme) => {
             return ({
                 padding: '5px 12px',
@@ -63,13 +63,13 @@ const ProgressSubHeader = (props) => {
             react_1.default.createElement(Typography_1.default, { variant: "caption", color: "text.primary", style: { marginLeft: '4px' } }, totalSize),
             totalTime && (react_1.default.createElement(Typography_1.default, { variant: "caption", color: "text.primary", style: { marginLeft: '8px' } }, totalTime))),
         cancelAll && (react_1.default.createElement(Button_1.default, { variant: Button_1.ButtonVariants.TEXT, onClick: () => { if (cancelAll)
-                cancelAll(); }, sx: (theme) => {
+                cancelAll(); }, disabled: isCancelAllDisabled, sx: (theme) => {
                 return ({
                     background: theme.palette.background.secondary,
                     height: '14px',
                     padding: '0px 3px',
                 });
             } },
-            react_1.default.createElement(Typography_1.default, { variant: "caption", color: "primary.main" }, literals.cancelAllLabel)))));
+            react_1.default.createElement(Typography_1.default, { variant: "caption" }, literals.cancelAllLabel)))));
 };
 exports.default = ProgressSubHeader;

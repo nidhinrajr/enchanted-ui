@@ -10,6 +10,7 @@ interface progressHeaderProps {
     translation?: ProgressBarLocalization | undefined;
     expanded: boolean;
     toggleButtonClick(): void;
+    isCancelAllDisabled: boolean;
 }
 /**
  * Represents the ProgressHeader component.

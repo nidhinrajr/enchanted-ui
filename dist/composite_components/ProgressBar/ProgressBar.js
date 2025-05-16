@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024 HCL America Inc.                                          *
+ * Copyright 2024, 2025 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -52,6 +52,7 @@ var EnumUploadStatus;
     EnumUploadStatus["PROGRESS"] = "PROGRESS";
     EnumUploadStatus["PENDING"] = "PENDING";
     EnumUploadStatus["FAILURE"] = "FAILURE";
+    EnumUploadStatus["CANCELLED"] = "CANCELLED";
 })(EnumUploadStatus = exports.EnumUploadStatus || (exports.EnumUploadStatus = {}));
 var ProgressItemType;
 (function (ProgressItemType) {
@@ -64,7 +65,7 @@ var ProgressItemType;
  * @returns {JSX.Element} The rendered ProgressBar component.
  */
 const ProgressBar = (props) => {
-    const { uploadStatus, totalPercentage, totalSize, totalTime, stringLiterals, uploadedFile, retryUploadItem, cancelItem, navigateFolder, cancelAll, learnMoreOnFailure, closeModal, pauseButton, translation, } = props;
+    const { uploadStatus, totalPercentage, totalSize, totalTime, stringLiterals, uploadedFile, retryUploadItem, cancelItem, navigateFolder, cancelAll, learnMoreOnFailure, closeModal, pauseButton, translation, isCancelAllDisabled, } = props;
     const [expanded, setExpanded] = (0, react_1.useState)(false);
     /**
      * Toggles the state of the progress bar.
@@ -73,8 +74,8 @@ const ProgressBar = (props) => {
         setExpanded(!expanded);
     };
     return (react_1.default.createElement(material_1.Box, { position: "fixed", bottom: "12px", right: "12px", zIndex: 2, "data-testid": "upload-progress-container" },
-        react_1.default.createElement(ProgressHeader_1.default, { totalPercentage: totalPercentage, uploadStatus: uploadStatus, closeModal: closeModal, stringLiterals: stringLiterals, cancelAll: cancelAll, pauseButton: pauseButton, translation: translation, expanded: expanded, toggleButtonClick: toggleButtonClick }),
-        expanded && (react_1.default.createElement(ProgressSubHeader_1.default, { totalSize: totalSize, totalTime: totalTime, literals: stringLiterals, cancelAll: cancelAll })),
+        react_1.default.createElement(ProgressHeader_1.default, { totalPercentage: totalPercentage, uploadStatus: uploadStatus, closeModal: closeModal, stringLiterals: stringLiterals, cancelAll: cancelAll, isCancelAllDisabled: isCancelAllDisabled, pauseButton: pauseButton, translation: translation, expanded: expanded, toggleButtonClick: toggleButtonClick }),
+        expanded && (react_1.default.createElement(ProgressSubHeader_1.default, { totalSize: totalSize, totalTime: totalTime, literals: stringLiterals, cancelAll: cancelAll, isCancelAllDisabled: isCancelAllDisabled })),
         expanded && (react_1.default.createElement(ProgressItems_1.default, { file: uploadedFile, retryUploadItem: retryUploadItem, cancelItem: cancelItem, navigateFolder: navigateFolder, literals: stringLiterals, learnMoreOnFailure: learnMoreOnFailure, translation: translation }))));
 };
 exports.default = ProgressBar;

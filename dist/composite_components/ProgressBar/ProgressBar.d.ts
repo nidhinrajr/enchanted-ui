@@ -3,7 +3,8 @@ export declare enum EnumUploadStatus {
     SUCCESS = "SUCCESS",
     PROGRESS = "PROGRESS",
     PENDING = "PENDING",
-    FAILURE = "FAILURE"
+    FAILURE = "FAILURE",
+    CANCELLED = "CANCELLED"
 }
 export declare enum ProgressItemType {
     File = "file",
@@ -38,6 +39,7 @@ export interface ProgressBarLocalization {
     progressLabel: string;
     pendingLabel: string;
     failureLabel: string;
+    cancelledLabel: string;
 }
 interface progressBarProps {
     totalPercentage: number;
@@ -54,6 +56,7 @@ interface progressBarProps {
     learnMoreOnFailure(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>): void;
     pauseButton?: Function;
     translation?: ProgressBarLocalization | undefined;
+    isCancelAllDisabled: boolean;
 }
 /**
  * @component Renders a progress bar component.

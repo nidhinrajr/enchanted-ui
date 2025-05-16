@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024 HCL America Inc.                                          *
+ * Copyright 2024, 2025 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -116,6 +116,14 @@ const StyledHeader = (0, material_1.styled)(material_1.Box)((props) => {
                             outline: `1px solid ${theme.palette.primary.inverse}`,
                             borderRadius: '2px',
                         },
+                        // Added disabled styles here
+                        '&.Mui-disabled': {
+                            color: theme.palette.action.inverse,
+                            opacity: 0.7,
+                            '&:hover': {
+                                backgroundColor: 'inherit',
+                            },
+                        },
                     } }),
                 // styles the chevron icon and close icon
                 '.MuiIconButton-root': {
@@ -140,7 +148,7 @@ const StyledHeader = (0, material_1.styled)(material_1.Box)((props) => {
  * @returns The rendered ProgressHeader component.
  */
 const ProgressHeader = (props) => {
-    const { totalPercentage, uploadStatus, closeModal, stringLiterals, cancelAll, pauseButton, translation, expanded, toggleButtonClick, } = props;
+    const { totalPercentage, uploadStatus, closeModal, stringLiterals, cancelAll, pauseButton, translation, expanded, toggleButtonClick, isCancelAllDisabled, } = props;
     const collapseButtonRef = (0, react_1.useRef)(null);
     const expandButtonRef = (0, react_1.useRef)(null);
     const isFirstRender = (0, react_1.useRef)(true);
@@ -195,7 +203,7 @@ const ProgressHeader = (props) => {
                         event.stopPropagation();
                         if (cancelAll)
                             cancelAll();
-                    } }, stringLiterals.cancelAllLabel)),
+                    }, disabled: isCancelAllDisabled }, stringLiterals.cancelAllLabel)),
             react_1.default.createElement(material_1.Box, null,
                 expanded && (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.collapseTooltip, tooltipsize: "small" },
                     react_1.default.createElement(IconButton_1.default, { "data-testid": "collapseIconButton", onClick: toggleButtonClick, onKeyDown: (e) => {
