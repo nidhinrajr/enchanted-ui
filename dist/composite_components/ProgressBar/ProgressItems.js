@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024 HCL America Inc.                                          *
+ * Copyright 2024, 2025 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -354,6 +354,7 @@ const ProgressItems = (props) => {
                                 queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { marginRight: '8px' }, "data-testid": "file-size", className: "file-size" }, `${fileSizeValueConverter(queueItem.size)}`)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.SUCCESS && (react_1.default.createElement("span", { "data-testid": "upload-status-label" }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.successLabel : queueItem.message)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.PROGRESS && (react_1.default.createElement("span", null, translation === null || translation === void 0 ? void 0 : translation.progressLabel)),
+                                queueItem.status === ProgressBar_1.EnumUploadStatus.CANCELLED && (react_1.default.createElement("span", null, translation === null || translation === void 0 ? void 0 : translation.cancelledLabel)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.FAILURE && (react_1.default.createElement(Tooltip_1.default, { title: queueItem.message, tooltipsize: "small" },
                                     react_1.default.createElement("span", { "data-testid": "failed-status-label", style: {
                                             maxWidth: showLearnMoreButton ? '134px' : '252px',

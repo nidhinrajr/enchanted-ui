@@ -5,6 +5,7 @@ interface ProgressSubHeaderProps {
     totalTime?: string;
     literals: Literals;
     cancelAll?: Function;
+    isCancelAllDisabled: boolean;
 }
 /**
  * @component Renders the progress subheader component.
