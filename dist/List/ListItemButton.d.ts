@@ -9,10 +9,11 @@ interface ListItemButtonProps extends MuiListItemButtonProps {
     secondaryActionButton?: ReactNode;
     cascading?: boolean;
     size?: ListSizes;
+    disabledHover?: boolean;
 }
 export declare const getMuiListItemButtonThemeOverrides: () => Components<Omit<Theme, 'components'>>;
 declare const ListItemButton: {
-    ({ ...props }: ListItemButtonProps): React.JSX.Element;
+    ({ disabledHover, ...props }: ListItemButtonProps): React.JSX.Element;
     defaultProps: {
         cascading: boolean;
         size: ListSizes;
