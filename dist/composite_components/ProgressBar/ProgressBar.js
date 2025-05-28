@@ -75,7 +75,7 @@ const ProgressBar = (props) => {
     };
     return (react_1.default.createElement(material_1.Box, { position: "fixed", bottom: "12px", right: "12px", zIndex: 2, "data-testid": "upload-progress-container" },
         react_1.default.createElement(ProgressHeader_1.default, { totalPercentage: totalPercentage, uploadStatus: uploadStatus, closeModal: closeModal, stringLiterals: stringLiterals, cancelAll: cancelAll, isCancelAllDisabled: isCancelAllDisabled, pauseButton: pauseButton, translation: translation, expanded: expanded, toggleButtonClick: toggleButtonClick }),
-        expanded && (react_1.default.createElement(ProgressSubHeader_1.default, { totalSize: totalSize, totalTime: totalTime, literals: stringLiterals, cancelAll: cancelAll, isCancelAllDisabled: isCancelAllDisabled })),
+        expanded && (react_1.default.createElement(ProgressSubHeader_1.default, { totalSize: totalSize, totalTime: totalTime, literals: stringLiterals })),
         expanded && (react_1.default.createElement(ProgressItems_1.default, { file: uploadedFile, retryUploadItem: retryUploadItem, cancelItem: cancelItem, navigateFolder: navigateFolder, literals: stringLiterals, learnMoreOnFailure: learnMoreOnFailure, translation: translation }))));
 };
 exports.default = ProgressBar;
