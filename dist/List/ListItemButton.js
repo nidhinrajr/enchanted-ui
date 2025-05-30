@@ -82,17 +82,6 @@ const getMuiListItemButtonThemeOverrides = () => {
                         padding: '6px 12px',
                     };
                     return {
-                        '&.MuiListItemButton-root.disabled-hover': {
-                            pointerEvents: 'none',
-                            backgroundColor: 'transparent',
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                            },
-                            '&.Mui-focusVisible': {
-                                boxShadow: 'none',
-                                backgroundColor: 'transparent',
-                            },
-                        },
                         '&.MuiListItemButton-root': Object.assign(Object.assign({}, listItemStyle), { '.MuiListItemIcon-root': Object.assign({ minWidth: ownerState.size === ListSizes.SMALL ? '16px' : '20px' }, sizeIconStyle), '.MuiListItemIcon-root.cascading': Object.assign({ margin: '0 0 0 4px', padding: '4px', justifyContent: 'center', alignItems: 'center' }, sizeStyle), '.MuiListItemAvatar-root': Object.assign({ minWidth: 'auto' }, sizeIconStyle) }),
                         '&.MuiListItemButton-root.Mui-disabled': {
                             opacity: 'unset',
@@ -105,6 +94,10 @@ const getMuiListItemButtonThemeOverrides = () => {
                         },
                         '&:hover': {
                             backgroundColor: theme.palette.action.hover,
+                        },
+                        '&.MuiListItemButton-root.disabled-hover': {
+                            pointerEvents: 'none',
+                            backgroundColor: 'transparent',
                         },
                         '&.Mui-focusVisible': {
                             backgroundColor: 'transparent',
@@ -156,7 +149,8 @@ const ListItemButton = (_a) => {
     var { disabledHover } = _a, props = __rest(_a, ["disabledHover"]);
     const theme = (0, material_1.useTheme)();
     const { secondaryActionButton } = props, restProps = __rest(props, ["secondaryActionButton"]);
-    return (react_1.default.createElement(ListItemButton_1.default, Object.assign({}, restProps, { className: `${disabledHover ? 'disabled-hover' : ''} ${props.className || ''}`, tabIndex: disabledHover ? -1 : props.tabIndex }),
+    const composedClassName = [props.className, disabledHover ? 'disabled-hover' : ''].filter(Boolean).join(' ');
+    return (react_1.default.createElement(ListItemButton_1.default, Object.assign({}, restProps, { className: composedClassName, tabIndex: disabledHover ? -1 : props.tabIndex, "aria-disabled": disabledHover ? 'true' : undefined }),
         props.children,
         secondaryActionButton
             && (react_1.default.createElement(ListItemSecondaryAction_1.default, null, secondaryActionButton)),
