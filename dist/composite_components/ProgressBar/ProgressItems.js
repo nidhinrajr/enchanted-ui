@@ -356,7 +356,9 @@ const ProgressItems = (props) => {
                             react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === ProgressBar_1.ProgressItemType.Folder ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px' } }))) : (react_1.default.createElement(ListItemAvatar_1.default, null,
                         react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === 'folder' ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px', opacity: 0.38 } }))),
                     queueItem.status !== ProgressBar_1.EnumUploadStatus.PENDING
-                        ? (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small" },
+                        ? (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", PopperProps: {
+                                    disablePortal: true,
+                                } },
                                 react_1.default.createElement("span", null, queueItem.name))), secondary: (react_1.default.createElement(react_1.default.Fragment, null,
                                 queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { marginRight: '8px' }, "data-testid": "file-size", className: "file-size" }, `${fileSizeValueConverter(queueItem.size)}`)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.SUCCESS && (react_1.default.createElement("span", { "data-testid": "upload-status-label" }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.successLabel : queueItem.message)),

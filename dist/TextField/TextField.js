@@ -127,6 +127,7 @@ const getMuiTextFieldThemeOverrides = () => {
                         textarea: Object.assign(Object.assign({}, theme.typography.body2), { color: theme.palette.text.primary, paddingTop: '1px', paddingBottom: '1px', '&::placeholder': {
                                 fontStyle: 'italic',
                                 color: theme.palette.text.secondary,
+                                opacity: 9,
                             } }),
                         '&.MuiInputBase-fullWidth': {
                             width: '100%',

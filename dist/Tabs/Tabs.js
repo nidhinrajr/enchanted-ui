@@ -125,7 +125,7 @@ const Tabs = (_a) => {
                 updateIndicatorStyle(selectedTab);
             }
         }
-    }, [props.orientation]);
+    }, [props.orientation, value]);
     (0, react_1.useEffect)(() => {
         if (props.value !== undefined) {
             setValue(props.value);
@@ -134,11 +134,11 @@ const Tabs = (_a) => {
     const handleChange = (event, newValue) => {
         if (props.onChange) {
             props.onChange(event, newValue);
+            updateIndicatorStyle(event.currentTarget);
         }
         else {
             setValue(newValue);
         }
-        updateIndicatorStyle(event.currentTarget);
     };
     return (react_1.default.createElement(StyledTabs, Object.assign({}, props, { value: value, onChange: handleChange, sx: {
             borderBottom: props.orientation === 'horizontal' ? 1 : 'none',

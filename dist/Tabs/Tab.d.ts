@@ -1,8 +1,5 @@
 import React from 'react';
 import { TabProps } from '@mui/material/Tab';
-declare const Tab: {
-    ({ ...props }: TabProps): React.JSX.Element;
-    defaultProps: {};
-};
+declare const Tab: React.ForwardRefExoticComponent<Omit<TabProps<"div", {}>, "ref"> & React.RefAttributes<HTMLDivElement>>;
 export * from '@mui/material/Tab';
 export default Tab;
