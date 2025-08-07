@@ -89,13 +89,14 @@ const getInputLabelAndActionProps = (props, isFocus) => {
         hiddenLabel: props.hiddenLabel,
         isFocus,
         fullWidth: props.fullWidth,
+        enableHelpHoverEffect: props.enableHelpHoverEffect,
     };
     return inputLabelProps;
 };
 const Autocomplete = (_a) => {
     var _b;
     var props = __rest(_a, []);
-    const { helperText, helperIconTooltip, actionProps, focused, hiddenLabel, nonEdit, renderNonEditInput, endAdornmentAction } = props, rest = __rest(props, ["helperText", "helperIconTooltip", "actionProps", "focused", "hiddenLabel", "nonEdit", "renderNonEditInput", "endAdornmentAction"]) // clean up rest of props for MuiAutocomplete tag
+    const { helperText, helperIconTooltip, actionProps, focused, hiddenLabel, nonEdit, enableHelpHoverEffect, renderNonEditInput, endAdornmentAction } = props, rest = __rest(props, ["helperText", "helperIconTooltip", "actionProps", "focused", "hiddenLabel", "nonEdit", "enableHelpHoverEffect", "renderNonEditInput", "endAdornmentAction"]) // clean up rest of props for MuiAutocomplete tag
     ;
     // prevents DOM warning for error=boolean
     rest.error = rest.error ? 1 : 0;
@@ -130,7 +131,7 @@ const Autocomplete = (_a) => {
                         helperIconTooltip,
                         actionProps,
                         nonEdit, size: props.size, autoFocus: props.autoFocus, renderNonEditInput,
-                        endAdornmentAction, value: props.value });
+                        endAdornmentAction, value: props.value, enableHelpHoverEffect });
                     const tooltipTitle = isValueOverFlowing ? ((_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.value) || '' : '';
                     textFieldArgs.inputProps = Object.assign({ 'aria-describedby': props.error ? undefined : helperTextId, 'aria-errormessage': props.error ? helperTextId : undefined, 'aria-labelledby': props.id ? `${props.id}-label` : undefined }, textFieldArgs.inputProps);
                     return (react_1.default.createElement(Tooltip_1.default, { title: tooltipTitle, tooltipsize: "small" },

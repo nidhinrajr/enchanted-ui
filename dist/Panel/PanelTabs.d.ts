@@ -7,6 +7,7 @@ export interface PanelTabsProps {
     isPanelCollapsed?: boolean;
     togglePanel?: (event: React.ChangeEvent<{}>) => void;
     translation: PanelLocalization | undefined;
+    togglePanelLabel?: string;
 }
 declare const PanelTabs: React.FC<PanelTabsProps>;
 export default PanelTabs;

@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024 HCL America Inc.                                          *
+ * Copyright 2024, 2025 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -262,6 +262,7 @@ const getInputLabelAndActionProps = (props, isFocus) => {
         hiddenLabel: props.hiddenLabel,
         fullWidth: props.fullWidth,
         isFocus,
+        enableHelpHoverEffect: props.enableHelpHoverEffect,
     };
     return inputLabelProps;
 };
@@ -291,6 +292,7 @@ const getMuiTextFieldProps = (props) => {
     delete cleanedProps.helperIconTooltip;
     delete cleanedProps.renderNonEditInput;
     delete cleanedProps.endAdornmentAction;
+    delete cleanedProps.enableHelpHoverEffect;
     const muiTextFieldProps = Object.assign(Object.assign({}, cleanedProps), { variant: 'outlined', label: undefined, InputProps: Object.assign(Object.assign({}, props.InputProps), { endAdornment: ((_c = props.InputProps) === null || _c === void 0 ? void 0 : _c.endAdornment) && !isComboBox
                 ? (_d = props.InputProps) === null || _d === void 0 ? void 0 : _d.endAdornment
                 : react_1.default.createElement(material_1.InputAdornment, { position: "end" }, getEndAdornment(props, isComboBox)) }) });

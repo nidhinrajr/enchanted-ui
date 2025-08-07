@@ -12,6 +12,7 @@ export type AccordionPropsAll = AccordionProps & {
     hasDivider?: boolean;
     showSecondaryText?: boolean;
     type: AccordionTypes;
+    square?: boolean;
 };
 declare const Accordion: {
     ({ ...props }: AccordionPropsAll): React.JSX.Element;

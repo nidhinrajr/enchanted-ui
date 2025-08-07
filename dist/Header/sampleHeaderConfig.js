@@ -54,10 +54,13 @@ const filter_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/car
 const settings_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/settings"));
 const column_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/column"));
 const undo_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/undo"));
+const folder__add_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/folder--add"));
 const redo_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/redo"));
 const document__tasks_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/document--tasks"));
 const folder_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/folder"));
 const star_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/star"));
+const grid_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/grid"));
+const list_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/list"));
 const FormControlLabel_1 = __importDefault(require("../prerequisite_components/FormControlLabel"));
 const IconButton_1 = __importDefault(require("../IconButton"));
 const Avatar_1 = __importDefault(require("../Avatar"));
@@ -147,25 +150,41 @@ exports.sampleDigitalAssetManagerOverview = {
         subtitle: '120 items',
     },
     endSection: [
-        react_1.default.createElement(Button_1.default, Object.assign({}, Button_1.default.defaultProps, { variant: Button_1.ButtonVariants.CONTAINED, startIcon: react_1.default.createElement(upload_1.default, null) }), "Upload"),
-        react_1.default.createElement(TextField_1.default, { hiddenLabel: true, sx: {
-                borderRadius: '2px',
-            }, InputProps: {
-                startAdornment: react_1.default.createElement(material_1.InputAdornment, { position: "start" },
-                    react_1.default.createElement(search_1.default, null)),
-            }, placeholder: "Search for assets and collections", onKeyDown: (e) => {
-                var _a;
-                if (e.key === 'Enter') {
-                    /* eslint-why sample handler only */
-                    /* eslint-disable-next-line no-console */
-                    console.log((_a = e.currentTarget.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value);
-                }
-            } }),
-        react_1.default.createElement(IconButton_1.default, Object.assign({}, IconButton_1.default.defaultProps),
-            react_1.default.createElement(filter_1.default, null)),
-        react_1.default.createElement(Button_1.default, Object.assign({}, Button_1.default.defaultProps, { variant: Button_1.ButtonVariants.TEXT, startIcon: react_1.default.createElement(column_1.default, null), endIcon: react_1.default.createElement(caret__down_1.default, null) }), "Recently added"),
-        react_1.default.createElement(IconButton_1.default, Object.assign({}, IconButton_1.default.defaultProps),
-            react_1.default.createElement(settings_1.default, null)),
+        react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement(Button_1.default, Object.assign({}, Button_1.default.defaultProps, { variant: Button_1.ButtonVariants.CONTAINED, startIcon: react_1.default.createElement(upload_1.default, null) }), "Upload"),
+            react_1.default.createElement(Button_1.default, { variant: Button_1.ButtonVariants.OUTLINED, startIcon: react_1.default.createElement(folder__add_1.default, null), "data-acceptance-test-id": "clickAddNewCollectionBTN", sx: { whiteSpace: 'nowrap', maxHeight: '28px' } }, "Create collection"),
+            react_1.default.createElement(TextField_1.default, { hiddenLabel: true, sx: {
+                    borderRadius: '2px',
+                }, InputProps: {
+                    startAdornment: react_1.default.createElement(material_1.InputAdornment, { position: "start" },
+                        react_1.default.createElement(search_1.default, null)),
+                }, placeholder: "Search for assets and collections", onKeyDown: (e) => {
+                    var _a;
+                    if (e.key === 'Enter') {
+                        /* eslint-why sample handler only */
+                        /* eslint-disable-next-line no-console */
+                        console.log((_a = e.currentTarget.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value);
+                    }
+                } }),
+            react_1.default.createElement(material_1.ToggleButtonGroup, { "data-testid": "testSelectedView", size: "medium" },
+                react_1.default.createElement(material_1.Tooltip, { title: "List view" },
+                    react_1.default.createElement(material_1.ToggleButton, { id: "listView", value: "listView", selected: true, "aria-pressed": true, "data-testid": "testListView" },
+                        react_1.default.createElement(list_1.default, { style: {
+                                margin: '3px',
+                                padding: '0px',
+                                height: '20px',
+                                width: '20px',
+                            } }))),
+                react_1.default.createElement(material_1.Tooltip, { title: "Grid view" },
+                    react_1.default.createElement(material_1.ToggleButton, { id: "gridView", value: "gridView", "data-testid": "testGridView" },
+                        react_1.default.createElement(grid_1.default, { style: {
+                                margin: '3px',
+                                padding: '0px',
+                                height: '20px',
+                                width: '20px',
+                            } })))),
+            react_1.default.createElement(IconButton_1.default, Object.assign({}, IconButton_1.default.defaultProps),
+                react_1.default.createElement(settings_1.default, null))),
     ],
 };
 exports.sampleDigitalAssetManagerItemPage = {

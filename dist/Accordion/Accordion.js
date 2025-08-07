@@ -104,16 +104,6 @@ const StyledAccordion = (0, styles_1.styled)(Accordion_1.default)((props) => {
         '&.MuiAccordion-root:before': {
             content: variant === 'outlined' ? '""' : 'none',
         },
-        '&:first-of-type': {
-            borderTopLeftRadius: '4px',
-            borderTopRightRadius: '4px',
-            borderBottomLeftRadius: '0px',
-            borderBottomRightRadius: '0px',
-        },
-        '&:last-of-type': {
-            borderBottomLeftRadius: '4px',
-            borderBottomRightRadius: '4px',
-        },
         '&.MuiAccordion-root .MuiAccordion-root': {
             borderTopRightRadius: '0px',
             borderBottomRightRadius: '0px',
@@ -152,12 +142,13 @@ const Accordion = (_a) => {
             }
         }
     };
-    return (react_1.default.createElement(StyledAccordion, Object.assign({ ref: accordionRef, onFocus: handleFocus, onBlur: () => { return setIsFocused(false); } }, props, { isfocused: isFocused, hasNested: props.hasNested, hasDivider: props.hasDivider })));
+    return (react_1.default.createElement(StyledAccordion, Object.assign({ ref: accordionRef, onFocus: handleFocus, onBlur: () => { return setIsFocused(false); } }, props, { isfocused: isFocused, hasNested: props.hasNested, hasDivider: props.hasDivider, square: props.square })));
 };
 const defaultProps = {
     type: AccordionTypes.OUTLINED,
     children: '',
     variant: 'nopadding',
+    square: false,
 };
 Accordion.defaultProps = defaultProps;
 __exportStar(require("@mui/material/Accordion"), exports);

@@ -4,6 +4,7 @@ import { ActionProps } from '../prerequisite_components/InputLabelAndAction/Inpu
 export interface DatePickerProps<TInputDate, TDate> extends Omit<MuiDatePickerProps<TInputDate, TDate>, 'renderInput'> {
     label?: string;
     helperText?: string;
+    enableHelpHoverEffect?: boolean;
     helperIconTooltip?: string;
     format?: string;
     margin?: 'none' | 'dense';
@@ -29,6 +30,7 @@ declare const DatePicker: {
         size: string;
         label: string;
         helperText: string;
+        enableHelpHoverEffect: boolean;
         helperIconTooltip: string;
         format: string;
         unitLabel: string;

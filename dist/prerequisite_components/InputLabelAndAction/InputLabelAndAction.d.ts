@@ -18,6 +18,7 @@ export interface InputLabelAndActionProps extends MuiInputLabelProps {
     label?: ReactNode | string;
     isFocus?: boolean;
     fullWidth?: boolean;
+    enableHelpHoverEffect?: boolean;
 }
 export declare const labelFocus: import("@emotion/styled").StyledComponent<import("@mui/system").MUIStyledCommonProps<Theme>, React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>;
 export declare const MuiInputHelpIcon: import("@emotion/styled").StyledComponent<{
@@ -33,7 +34,9 @@ export declare const MuiInputHelpIcon: import("@emotion/styled").StyledComponent
     viewBox?: string | undefined;
 } & import("@mui/material/OverridableComponent").CommonProps & Omit<Omit<React.SVGProps<SVGSVGElement>, "ref"> & {
     ref?: ((instance: SVGSVGElement | null) => void) | React.RefObject<SVGSVGElement> | null | undefined;
-}, keyof import("@mui/material/OverridableComponent").CommonProps | "color" | "fontSize" | "shapeRendering" | "children" | "sx" | "viewBox" | "htmlColor" | "inheritViewBox" | "titleAccess"> & import("@mui/system").MUIStyledCommonProps<Theme>, {}, {}>;
+}, keyof import("@mui/material/OverridableComponent").CommonProps | "color" | "fontSize" | "shapeRendering" | "children" | "sx" | "viewBox" | "htmlColor" | "inheritViewBox" | "titleAccess"> & import("@mui/system").MUIStyledCommonProps<Theme> & {
+    enableHelpHoverEffect?: boolean | undefined;
+}, {}, {}>;
 export declare const StyledInputLabel: import("@emotion/styled").StyledComponent<MuiInputLabelProps & import("@mui/system").MUIStyledCommonProps<Theme>, {}, {}>;
 export declare const MuiGrid: import("@emotion/styled").StyledComponent<import("@mui/system").SystemProps<Theme> & {
     children?: React.ReactNode;

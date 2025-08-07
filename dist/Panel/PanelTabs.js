@@ -114,7 +114,7 @@ const getArrowIcon = (isPanelCollapsed) => {
     }
     return React.createElement(double_right_1.default, null);
 };
-const PanelTabs = ({ selectedTabValue, handleTabChange, tabs, isPanelCollapsed, togglePanel, translation, }) => {
+const PanelTabs = ({ selectedTabValue, handleTabChange, tabs, isPanelCollapsed, togglePanel, translation, togglePanelLabel, }) => {
     const [activeTab, setActiveTab] = React.useState(null);
     const handleFocus = (key) => {
         setActiveTab(key);
@@ -141,7 +141,7 @@ const PanelTabs = ({ selectedTabValue, handleTabChange, tabs, isPanelCollapsed, 
         togglePanel
             ? (React.createElement(ToggleButtonContainerStyled, null,
                 React.createElement(Tooltip_1.default, { title: translation && translation.toggleButtonTooltip ? translation.toggleButtonTooltip : '' },
-                    React.createElement(IconButton_1.default, { size: "small", variant: IconButton_1.IconButtonVariants.WITHOUT_PADDING, onClick: togglePanel, "aria-expanded": !isPanelCollapsed, "aria-controls": "panelContent", "aria-label": "Toggle panel" }, getArrowIcon(isPanelCollapsed)))))
+                    React.createElement(IconButton_1.default, { size: "small", variant: IconButton_1.IconButtonVariants.WITHOUT_PADDING, onClick: togglePanel, "aria-expanded": !isPanelCollapsed, "aria-controls": "panelContent", "aria-label": togglePanelLabel || 'Toggle panel' }, getArrowIcon(isPanelCollapsed)))))
             : null));
 };
 PanelTabs.defaultProps = {};
