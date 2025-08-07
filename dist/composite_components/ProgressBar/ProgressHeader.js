@@ -93,6 +93,19 @@ const StyledHeader = (0, material_1.styled)(material_1.Box)((props) => {
                     padding: '2px 0px 2px 0px',
                     wordBreak: 'break-word',
                     color: theme.palette.action.inverse,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '180px',
+                    cursor: 'pointer',
+                },
+                // Tooltip on hover for full text
+                '&.MuiTypography-root': {
+                    '&:hover': {
+                        padding: '2px 0px 2px 0px',
+                        wordBreak: 'break-word',
+                        color: theme.palette.action.inverse,
+                    },
                 },
             },
             '&[data-testid=end-actions]': {
@@ -106,8 +119,8 @@ const StyledHeader = (0, material_1.styled)(material_1.Box)((props) => {
                         textTransform: 'none',
                         minWidth: 'auto',
                         wordBreak: 'normal',
-                        overflowWrap: 'anywhere',
                         position: 'relative',
+                        whiteSpace: 'nowrap',
                         '&:hover': {
                             backgroundColor: theme.palette.action.hoverInverse,
                             borderRadius: '2px',
@@ -188,7 +201,8 @@ const ProgressHeader = (props) => {
     return (react_1.default.createElement(StyledHeader, { style: { borderRadius: expanded ? '4px 4px 0px 0px' : '4px' } },
         react_1.default.createElement(material_1.Box, { "data-testid": "wrapper" },
             renderIcon(),
-            react_1.default.createElement(Typography_1.default, { variant: "body2" }, uploadStatus)),
+            react_1.default.createElement(Tooltip_1.default, { title: uploadStatus, tooltipsize: "small" },
+                react_1.default.createElement(Typography_1.default, { variant: "body2" }, uploadStatus))),
         react_1.default.createElement(material_1.Box, { "data-testid": "end-actions" },
             pauseButton
                 && (react_1.default.createElement(Button_1.default, { "data-testid": "pauseButton", onClick: (event) => {
