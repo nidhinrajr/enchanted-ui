@@ -6,6 +6,7 @@ export interface SelectProps extends MuiSelectProps {
     nonEdit?: boolean;
     actionProps?: ActionProps[];
     helperText?: string;
+    enableHelpHoverEffect?: boolean;
     helperIconTooltip?: string;
     margin?: 'none' | 'dense';
     color?: 'primary';

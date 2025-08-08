@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024 HCL America Inc.                                          *
+ * Copyright 2024, 2025 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -112,6 +112,7 @@ const getMuiSelectProps = (props) => {
     delete cleanedProps.helperIconTooltip;
     delete cleanedProps.helperText;
     delete cleanedProps.hiddenLabel;
+    delete cleanedProps.enableHelpHoverEffect;
     const handleMouseDown = ((event) => {
         if (props.disabled || props.readOnly) {
             return;
@@ -217,6 +218,7 @@ const getInputLabelAndActionProps = (props) => {
         actionProps: props.actionProps,
         hiddenLabel: props.hiddenLabel,
         fullWidth: props.fullWidth,
+        enableHelpHoverEffect: props.enableHelpHoverEffect,
     };
     return inputLabelProps;
 };
@@ -240,6 +242,7 @@ Select.defaultProps = {
     size: 'medium',
     label: '',
     helperText: '',
+    enableHelpHoverEffect: false,
     helperIconTooltip: '',
     placeholder: '',
     unitLabel: '',

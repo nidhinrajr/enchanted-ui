@@ -25,7 +25,7 @@ export type LinkProps = MuiLinkProps & {
  */
 export declare const getMuiLinkThemeOverrides: () => Components<Omit<Theme, 'components'>>;
 declare const Link: {
-    ({ ...props }: LinkProps): React.JSX.Element;
+    ({ hoverBackground, spacing, ...props }: LinkProps): React.JSX.Element;
     defaultProps: {
         disabled: boolean;
         type: LinkType;

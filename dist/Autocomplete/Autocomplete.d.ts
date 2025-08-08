@@ -13,6 +13,7 @@ export interface AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> exte
     actionProps?: ActionProps[];
     nonEdit?: boolean;
     helperText?: string;
+    enableHelpHoverEffect?: boolean;
     helperIconTooltip?: string;
     tooltipPlacement?: TooltipPlacement;
     label?: string;

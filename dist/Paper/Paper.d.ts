@@ -1,10 +1,7 @@
 import React from 'react';
 import { PaperProps } from '@mui/material/Paper';
 import { Components, Theme } from '@mui/material';
-declare const Paper: {
-    ({ ...props }: PaperProps): React.JSX.Element;
-    defaultProps: PaperProps<"div", {}>;
-};
+declare const Paper: React.ForwardRefExoticComponent<Omit<PaperProps<"div", {}>, "ref"> & React.RefAttributes<HTMLDivElement>>;
 declare module '@mui/material/Paper' {
     interface PaperPropsVariantOverrides {
         nopadding: true;

@@ -97,7 +97,7 @@ const PanelBody = (0, styles_1.styled)('main')((props) => {
     };
 });
 const Panel = (_a) => {
-    var { open, anchor, variant, tabList, hideSidebar, selectedTabValue, panelVariant, handleTabChange, togglePanel, isPanelCollapsed, translation } = _a, rest = __rest(_a, ["open", "anchor", "variant", "tabList", "hideSidebar", "selectedTabValue", "panelVariant", "handleTabChange", "togglePanel", "isPanelCollapsed", "translation"]);
+    var { open, anchor, variant, tabList, hideSidebar, selectedTabValue, panelVariant, handleTabChange, togglePanel, isPanelCollapsed, translation, togglePanelLabel } = _a, rest = __rest(_a, ["open", "anchor", "variant", "tabList", "hideSidebar", "selectedTabValue", "panelVariant", "handleTabChange", "togglePanel", "isPanelCollapsed", "translation", "togglePanelLabel"]);
     const [selectedTabValueDefault, setSelelectedTabValueDefault] = React.useState(0);
     const handleTabChangeDefault = (event, newValue) => {
         setSelelectedTabValueDefault(newValue);
@@ -105,7 +105,7 @@ const Panel = (_a) => {
     return (React.createElement(StyledDrawer, { anchor: anchor || 'right', variant: variant || 'persistent', open: open },
         React.createElement(PanelBody, { hideSidebar: hideSidebar, isPanelCollapsed: isPanelCollapsed },
             React.createElement(React.Fragment, null, tabList && (React.createElement(React.Fragment, null,
-                hideSidebar !== true && (React.createElement(PanelTabs_1.default, { tabs: tabList, handleTabChange: handleTabChange || handleTabChangeDefault, selectedTabValue: selectedTabValue || selectedTabValueDefault, isPanelCollapsed: isPanelCollapsed, togglePanel: togglePanel, translation: translation })),
+                hideSidebar !== true && (React.createElement(PanelTabs_1.default, { tabs: tabList, handleTabChange: handleTabChange || handleTabChangeDefault, selectedTabValue: selectedTabValue || selectedTabValueDefault, isPanelCollapsed: isPanelCollapsed, togglePanel: togglePanel, translation: translation, togglePanelLabel: togglePanelLabel })),
                 !isPanelCollapsed && (React.createElement(PanelTabContent_1.default, { open: open, tabs: tabList, selectedTabValue: selectedTabValue || selectedTabValueDefault, variant: panelVariant || PanelVariants.WITH_PADDING, toggleClose: rest.toggleClose || undefined, translation: translation }))))))));
 };
 Panel.defaultProps = {

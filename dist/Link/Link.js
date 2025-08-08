@@ -107,7 +107,9 @@ const getMuiLinkThemeOverrides = () => {
 };
 exports.getMuiLinkThemeOverrides = getMuiLinkThemeOverrides;
 const Link = (_a) => {
-    var props = __rest(_a, []);
+    var { hoverBackground, spacing } = _a, props = __rest(_a, ["hoverBackground", "spacing"]);
+    // Remove custom props (hoverBackground, spacing) from props passed to MuiLink
+    // to prevent React warnings about non-standard DOM attributes
     return (react_1.default.createElement(Link_1.default, Object.assign({}, props)));
 };
 Link.defaultProps = {

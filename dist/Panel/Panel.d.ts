@@ -36,6 +36,7 @@ export interface InspectorPanelProps extends DrawerProps {
     togglePanel?: (event: React.ChangeEvent<{}>) => void;
     isPanelCollapsed?: boolean;
     translation?: PanelLocalization | undefined;
+    togglePanelLabel?: string;
 }
 export interface PanelProps {
     hideSidebar?: boolean;

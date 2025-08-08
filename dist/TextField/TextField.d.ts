@@ -14,6 +14,7 @@ export interface TextFieldProps extends Omit<OutlinedTextFieldProps, 'variant'> 
     nonEdit?: boolean;
     actionProps?: ActionProps[];
     helperText?: string;
+    enableHelpHoverEffect?: boolean;
     helperIconTooltip?: string;
     margin?: 'none' | 'dense';
     color?: 'primary';
