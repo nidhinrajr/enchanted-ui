@@ -8,6 +8,7 @@ interface ProgressItemsProps {
     literals: Literals;
     learnMoreOnFailure(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>): void;
     translation?: ProgressBarLocalization | undefined;
+    direction?: 'ltr' | 'rtl';
 }
 /**
  * @component Renders the progress items component.

@@ -59,6 +59,7 @@ const Tooltip_1 = __importDefault(require("../../Tooltip"));
  */
 const StyledHeader = (0, material_1.styled)(material_1.Box)((props) => {
     const { theme } = props;
+    const isRTL = theme.direction === 'rtl';
     return (Object.assign(Object.assign({}, theme.typography.body2), { position: 'static', boxSizing: 'border-box', width: '360px', maxWidth: 'inherit', justifyContent: 'space-between', background: theme.palette.background.dark, boxShadow: theme.shadows[6], color: theme.palette.text.primary, display: 'flex', alignItems: 'center', height: '36px', padding: '8px 12px 8px 12px', '.MuiBox-root': {
             display: 'flex',
             alignItems: 'center',

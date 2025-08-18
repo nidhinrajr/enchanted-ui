@@ -43,6 +43,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProgressItemType = exports.EnumUploadStatus = void 0;
 const react_1 = __importStar(require("react"));
 const material_1 = require("@mui/material");
+const styles_1 = require("@mui/material/styles");
 const ProgressHeader_1 = __importDefault(require("./ProgressHeader"));
 const ProgressItems_1 = __importDefault(require("./ProgressItems"));
 const ProgressSubHeader_1 = __importDefault(require("./ProgressSubHeader"));
@@ -67,6 +68,7 @@ var ProgressItemType;
 const ProgressBar = (props) => {
     const { uploadStatus, totalPercentage, totalSize, totalTime, stringLiterals, uploadedFile, retryUploadItem, cancelItem, navigateFolder, cancelAll, learnMoreOnFailure, closeModal, pauseButton, translation, isCancelAllDisabled, } = props;
     const [expanded, setExpanded] = (0, react_1.useState)(false);
+    const theme = (0, styles_1.useTheme)();
     /**
      * Toggles the state of the progress bar.
      */
@@ -76,6 +78,6 @@ const ProgressBar = (props) => {
     return (react_1.default.createElement(material_1.Box, { position: "fixed", bottom: "12px", right: "12px", zIndex: 2, "data-testid": "upload-progress-container" },
         react_1.default.createElement(ProgressHeader_1.default, { totalPercentage: totalPercentage, uploadStatus: uploadStatus, closeModal: closeModal, stringLiterals: stringLiterals, cancelAll: cancelAll, isCancelAllDisabled: isCancelAllDisabled, pauseButton: pauseButton, translation: translation, expanded: expanded, toggleButtonClick: toggleButtonClick }),
         expanded && (react_1.default.createElement(ProgressSubHeader_1.default, { totalSize: totalSize, totalTime: totalTime, literals: stringLiterals })),
-        expanded && (react_1.default.createElement(ProgressItems_1.default, { file: uploadedFile, retryUploadItem: retryUploadItem, cancelItem: cancelItem, navigateFolder: navigateFolder, literals: stringLiterals, learnMoreOnFailure: learnMoreOnFailure, translation: translation }))));
+        expanded && (react_1.default.createElement(ProgressItems_1.default, { file: uploadedFile, retryUploadItem: retryUploadItem, cancelItem: cancelItem, navigateFolder: navigateFolder, literals: stringLiterals, learnMoreOnFailure: learnMoreOnFailure, translation: translation, direction: theme.direction }))));
 };
 exports.default = ProgressBar;
