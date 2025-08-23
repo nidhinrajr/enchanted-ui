@@ -27,7 +27,9 @@ const Typography_1 = __importDefault(require("../../Typography"));
  */
 const ProgressSubHeader = (props) => {
     const { totalSize, totalTime, literals, } = props;
-    return (react_1.default.createElement(material_1.Box, { sx: (theme) => {
+    const theme = (0, material_1.useTheme)();
+    const isRTL = theme.direction === 'rtl';
+    return (react_1.default.createElement(material_1.Box, { sx: () => {
             return ({
                 padding: '5px 12px',
                 background: theme.palette.background.secondary,
@@ -36,7 +38,7 @@ const ProgressSubHeader = (props) => {
         }, height: "24px", display: "flex", justifyContent: "space-between", alignItems: "center", boxSizing: "border-box" },
         react_1.default.createElement(material_1.Box, { display: "flex", alignItems: "center" },
             react_1.default.createElement(Typography_1.default, { variant: "caption", color: "text.secondary" }, `${literals.totalSizeLabel}:`),
-            react_1.default.createElement(Typography_1.default, { variant: "caption", color: "text.primary", style: { marginLeft: '4px' } }, totalSize),
-            totalTime && (react_1.default.createElement(Typography_1.default, { variant: "caption", color: "text.primary", style: { marginLeft: '8px' } }, totalTime)))));
+            react_1.default.createElement(Typography_1.default, { variant: "caption", color: "text.primary", style: { [isRTL ? 'marginRight' : 'marginLeft']: '4px' } }, totalSize),
+            totalTime && (react_1.default.createElement(Typography_1.default, { variant: "caption", color: "text.primary", style: { [isRTL ? 'marginRight' : 'marginLeft']: '8px' } }, totalTime)))));
 };
 exports.default = ProgressSubHeader;

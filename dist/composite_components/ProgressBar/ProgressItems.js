@@ -187,7 +187,8 @@ const StyledList = (0, material_1.styled)(List_1.default)((props) => {
  * @returns {JSX.Element} The rendered component.
  */
 const ProgressItems = (props) => {
-    const { file, retryUploadItem, cancelItem, navigateFolder, literals, learnMoreOnFailure, translation, } = props;
+    const { file, retryUploadItem, cancelItem, navigateFolder, literals, learnMoreOnFailure, translation, direction = 'ltr', } = props;
+    const isRTL = direction === 'rtl';
     const [hover, setHover] = (0, react_1.useState)(null);
     const [focus, setFocus] = (0, react_1.useState)(null);
     let folderId = '';
@@ -214,7 +215,15 @@ const ProgressItems = (props) => {
      */
     const renderHoverIcon = (queueItem) => {
         if (queueItem.status === ProgressBar_1.EnumUploadStatus.SUCCESS && navigateFolder) {
-            return (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.navigateButtonTooltip, tooltipsize: "small" },
+            return (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.navigateButtonTooltip, tooltipsize: "small", placement: "left", PopperProps: {
+                    disablePortal: true,
+                }, componentsProps: {
+                    tooltip: {
+                        sx: {
+                            whiteSpace: 'nowrap',
+                        },
+                    },
+                } },
                 react_1.default.createElement(IconButton_1.default, { "data-testid": "navigate-folder", onClick: () => { return navigateFolder(queueItem); }, onKeyDown: (event) => {
                         if (event.key === 'Enter') {
                             navigateFolder(queueItem);
@@ -223,7 +232,15 @@ const ProgressItems = (props) => {
                     react_1.default.createElement(folders_1.default, null))));
         }
         if ((queueItem.status === ProgressBar_1.EnumUploadStatus.PROGRESS || queueItem.status === ProgressBar_1.EnumUploadStatus.PENDING) && cancelItem) {
-            return (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.errorButtonTooltip, tooltipsize: "small" },
+            return (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.errorButtonTooltip, tooltipsize: "small", placement: "left", PopperProps: {
+                    disablePortal: true,
+                }, componentsProps: {
+                    tooltip: {
+                        sx: {
+                            whiteSpace: 'nowrap',
+                        },
+                    },
+                } },
                 react_1.default.createElement(IconButton_1.default, { "data-testid": "cancel-upload", onClick: () => { return cancelItem(queueItem); }, onKeyDown: (event) => {
                         if (event.key === 'Enter') {
                             cancelItem(queueItem);
@@ -232,7 +249,15 @@ const ProgressItems = (props) => {
                     react_1.default.createElement(error_1.default, null))));
         }
         if (queueItem.status === ProgressBar_1.EnumUploadStatus.FAILURE && retryUploadItem) {
-            return (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.retryButtonTooltip, tooltipsize: "small" },
+            return (react_1.default.createElement(Tooltip_1.default, { title: translation === null || translation === void 0 ? void 0 : translation.retryButtonTooltip, tooltipsize: "small", placement: "left", PopperProps: {
+                    disablePortal: true,
+                }, componentsProps: {
+                    tooltip: {
+                        sx: {
+                            whiteSpace: 'nowrap',
+                        },
+                    },
+                } },
                 react_1.default.createElement(IconButton_1.default, { "data-testid": "retry-upload", onClick: () => { retryUploadItem(queueItem); }, onKeyDown: (event) => {
                         if (event.key === 'Enter') {
                             retryUploadItem(queueItem);
@@ -356,11 +381,17 @@ const ProgressItems = (props) => {
                             react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === ProgressBar_1.ProgressItemType.Folder ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px' } }))) : (react_1.default.createElement(ListItemAvatar_1.default, null,
                         react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === 'folder' ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px', opacity: 0.38 } }))),
                     queueItem.status !== ProgressBar_1.EnumUploadStatus.PENDING
-                        ? (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", PopperProps: {
+                        ? (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", placement: "left", PopperProps: {
                                     disablePortal: true,
+                                }, componentsProps: {
+                                    tooltip: {
+                                        sx: {
+                                            whiteSpace: 'nowrap',
+                                        },
+                                    },
                                 } },
                                 react_1.default.createElement("span", null, queueItem.name))), secondary: (react_1.default.createElement(react_1.default.Fragment, null,
-                                queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { marginRight: '8px' }, "data-testid": "file-size", className: "file-size" }, `${fileSizeValueConverter(queueItem.size)}`)),
+                                queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { [isRTL ? 'marginLeft' : 'marginRight']: '8px' }, "data-testid": "file-size", className: "file-size" }, `${fileSizeValueConverter(queueItem.size)}`)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.SUCCESS && (react_1.default.createElement("span", { "data-testid": "upload-status-label" }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.successLabel : queueItem.message)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.PROGRESS && (react_1.default.createElement("span", null, translation === null || translation === void 0 ? void 0 : translation.progressLabel)),
                                 queueItem.status === ProgressBar_1.EnumUploadStatus.CANCELLED && (react_1.default.createElement("span", null, translation === null || translation === void 0 ? void 0 : translation.cancelledLabel)),
@@ -368,19 +399,30 @@ const ProgressItems = (props) => {
                                     react_1.default.createElement("span", { "data-testid": "failed-status-label", style: {
                                             maxWidth: showLearnMoreButton ? '134px' : '252px',
                                         } }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.failureLabel : queueItem.message))),
-                                showLearnMoreButton && (react_1.default.createElement(Tooltip_1.default, { title: literals.learnMoreLabel, tooltipsize: "small" },
+                                showLearnMoreButton && (react_1.default.createElement(Tooltip_1.default, { title: literals.learnMoreLabel, tooltipsize: "small", placement: "left", PopperProps: {
+                                        disablePortal: true,
+                                    }, componentsProps: {
+                                        tooltip: {
+                                            sx: {
+                                                whiteSpace: 'nowrap',
+                                            },
+                                        },
+                                    } },
                                     react_1.default.createElement(Button_1.default, { style: { marginLeft: '4px', padding: '0px 3px 3px 3px' }, onClick: learnMoreOnFailure, onKeyDown: (event) => {
                                             if (event.key === 'Enter') {
                                                 learnMoreOnFailure(event);
                                             }
                                         }, "data-testid": "learn-more-button" },
-                                        react_1.default.createElement(Typography_1.default, { variant: "caption" }, literals.learnMoreLabel)))))) })) : (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small" },
+                                        react_1.default.createElement(Typography_1.default, { variant: "caption" }, literals.learnMoreLabel)))))) })) : (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", placement: "left", PopperProps: {
+                                disablePortal: true,
+                            } },
                             react_1.default.createElement("span", { "data-testid": "pending-item-text-primary" }, queueItem.name))), secondary: (react_1.default.createElement(react_1.default.Fragment, null,
-                            queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { marginRight: '8px' }, className: "file-size", "data-testid": "pending-item-text-secondary" }, `${fileSizeValueConverter(queueItem.size)}`)),
+                            queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { [isRTL ? 'marginLeft' : 'marginRight']: '8px' }, className: "file-size", "data-testid": "pending-item-text-secondary" }, `${fileSizeValueConverter(queueItem.size)}`)),
                             react_1.default.createElement("span", null, translation === null || translation === void 0 ? void 0 : translation.pendingLabel))) })),
                     react_1.default.createElement(ListItemIcon_1.default, { "data-testid": "progress-indicator", style: renderHoverIcon(queueItem) !== null
                             && (hover === `${queueItem.name}_${queueItem.timestamp}` || focus === `${queueItem.name}_${queueItem.timestamp}`)
-                            ? { marginRight: '28px' } : { marginRight: '0px' } }, renderProgressIndicator(queueItem.status, queueItem.progress))))));
+                            ? { [isRTL ? 'marginLeft' : 'marginRight']: '28px' }
+                            : { [isRTL ? 'marginLeft' : 'marginRight']: '0px' } }, renderProgressIndicator(queueItem.status, queueItem.progress))))));
     })));
 };
 exports.default = ProgressItems;
