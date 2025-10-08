@@ -106,6 +106,7 @@ const InputAdornment = (0, material_1.styled)(material_1.InputAdornment)(({ them
 });
 const getMuiSelectProps = (props) => {
     const cleanedProps = Object.assign({}, props);
+    cleanedProps.id += '-select';
     delete cleanedProps.actionProps;
     delete cleanedProps.nonEdit;
     delete cleanedProps.unitLabel;
@@ -119,7 +120,9 @@ const getMuiSelectProps = (props) => {
         }
         // This is workaround solution to catch the mousedown on the InputAdornment section
         // and to simulate a mousedown event on the select section to open the menu component
-        const element = document.getElementById(props.id || '');
+        // Try to get the sibling node with this id (just in case somebody has accidentally used the same id elsewhere)
+        const parent = event.target.parentElement;
+        const element = parent === null || parent === void 0 ? void 0 : parent.querySelector(`:scope [id='${props.id}-select']`);
         if (element) {
             event.preventDefault();
             const elementPosition = element.getBoundingClientRect();
@@ -183,7 +186,7 @@ const renderInput = (props, id) => {
     if (!paperPropsStyle.marginTop) {
         paperPropsStyle.marginTop = defaultStyle.marginTop;
     }
-    return (react_1.default.createElement(Select_1.default, Object.assign({}, selectProps, { "aria-label": typeof props.label === 'string' ? props.label : props.placeholder, inputProps: { id: props.id }, MenuProps: Object.assign(Object.assign({}, selectProps.MenuProps), { transformOrigin: { vertical: 'top', horizontal: theme.direction === theme_1.ThemeDirectionType.RTL ? 'right' : 'left' }, anchorOrigin: { vertical: 'top', horizontal: theme.direction === theme_1.ThemeDirectionType.RTL ? 'right' : 'left' }, PaperProps: {
+    return (react_1.default.createElement(Select_1.default, Object.assign({}, selectProps, { "aria-label": typeof props.label === 'string' ? props.label : props.placeholder, labelId: `${props.id}-label`, inputProps: { id: props.id }, MenuProps: Object.assign(Object.assign({}, selectProps.MenuProps), { transformOrigin: { vertical: 'top', horizontal: theme.direction === theme_1.ThemeDirectionType.RTL ? 'right' : 'left' }, anchorOrigin: { vertical: 'top', horizontal: theme.direction === theme_1.ThemeDirectionType.RTL ? 'right' : 'left' }, PaperProps: {
                 style: paperPropsStyle,
                 elevation: 2,
                 ref: (node) => {
@@ -205,6 +208,7 @@ const renderInput = (props, id) => {
             } }) })));
 };
 const getInputLabelAndActionProps = (props) => {
+    const inputLabelId = `${props.id}-label`;
     const inputLabelProps = {
         color: props.color,
         disabled: props.disabled,
@@ -212,7 +216,7 @@ const getInputLabelAndActionProps = (props) => {
         required: props.required,
         sx: props.sx,
         htmlFor: props.id,
-        id: props.id,
+        id: inputLabelId,
         label: props.label,
         helperIconTooltip: props.helperIconTooltip,
         actionProps: props.actionProps,

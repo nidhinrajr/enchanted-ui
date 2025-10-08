@@ -5,11 +5,6 @@ interface ListItemProps extends MuiListItemProps {
     hasBorder?: boolean;
 }
 export declare const getMuiListItemThemeOverrides: () => Components<Omit<Theme, 'components'>>;
-declare const ListItem: {
-    ({ ...props }: ListItemProps): React.JSX.Element;
-    defaultProps: {
-        hasBorder: boolean;
-    };
-};
+declare const ListItem: React.ForwardRefExoticComponent<Omit<ListItemProps, "ref"> & React.RefAttributes<HTMLLIElement>>;
 export * from '@mui/material/ListItem';
 export default ListItem;
