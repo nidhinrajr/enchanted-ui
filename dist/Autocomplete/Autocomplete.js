@@ -108,6 +108,7 @@ const Autocomplete = (_a) => {
     const inputLabelAndActionProps = getInputLabelAndActionProps(props, isFocus);
     const textfieldRef = react_1.default.useRef(null);
     const [isValueOverFlowing, setIsValueOverFlowing] = react_1.default.useState(false);
+    const [prevValue, setPrevValue] = react_1.default.useState('');
     react_1.default.useEffect(() => {
         const textFieldElement = textfieldRef.current;
         if (textFieldElement && textFieldElement.scrollWidth > textFieldElement.clientWidth) {
@@ -117,6 +118,25 @@ const Autocomplete = (_a) => {
             setIsValueOverFlowing(false);
         }
     }, [props.value]);
+    const getAdornmentWidth = react_1.default.useCallback(() => {
+        var _a, _b;
+        const parentWidth = ((_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.offsetWidth) || 0;
+        let iconCount = 0;
+        // show three icon
+        if (props.disabled) { // two icon show either error or caret
+            iconCount += props.freeSolo ? 0 : 1;
+        }
+        else { // three icon show caret & close icon or error
+            iconCount += !props.freeSolo ? 2 : 1;
+        }
+        if (props.error) {
+            iconCount += 1;
+        }
+        // Calculate the total width needed for the input adornment area based on the number of icons.
+        // Each icon is assumed to be 21px wide. If the parent width is very small (<= 150px), subtract 3px for tighter spacing.
+        const iconWidth = ((iconCount) * 21 - (parentWidth <= 150 ? 3 : 0));
+        return Math.max(iconWidth, 0);
+    }, [props.error, props.freeSolo, props.disabled, textfieldRef]);
     return (react_1.default.createElement(AutoCompleteContainer, { className: "autocomplete-container" },
         react_1.default.createElement(FormControl_1.default, Object.assign({}, muiFormControlProps),
             react_1.default.createElement(InputLabelAndAction_1.default, Object.assign({}, inputLabelAndActionProps)),
@@ -124,15 +144,32 @@ const Autocomplete = (_a) => {
                     setIsFocus(true);
                 }, onBlur: () => {
                     setIsFocus(false);
+                    if (textfieldRef.current) {
+                        setPrevValue(textfieldRef.current.value);
+                    }
                 }, clearIcon: props.clearIcon ? props.clearIcon : react_1.default.createElement(close_1.default, { color: "action" }), popupIcon: react_1.default.createElement(caret__down_1.default, { color: "action" }), renderInput: (params) => {
-                    var _a;
-                    const textFieldArgs = Object.assign(Object.assign({}, params), { placeholder: props.placeholder, error: Boolean(props.error), required: props.required, fullWidth: props.fullWidth, sx: props.sx, focused,
+                    var _a, _b, _c, _d;
+                    const textFieldArgs = Object.assign(Object.assign({}, params), { placeholder: props.placeholder, error: Boolean(props.error), required: props.required, fullWidth: props.fullWidth, sx: Object.assign(Object.assign({}, props.sx), { '& .MuiInputAdornment-root': {
+                                width: getAdornmentWidth(),
+                            } }), focused,
                         hiddenLabel,
                         helperIconTooltip,
                         actionProps,
                         nonEdit, size: props.size, autoFocus: props.autoFocus, renderNonEditInput,
                         endAdornmentAction, value: props.value, enableHelpHoverEffect });
-                    const tooltipTitle = isValueOverFlowing ? ((_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.value) || '' : '';
+                    const inputValue = (_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '';
+                    let tooltipTitle = '';
+                    if (isValueOverFlowing) {
+                        if (props.freeSolo) {
+                            tooltipTitle = inputValue;
+                        }
+                        else if (inputValue === prevValue) {
+                            tooltipTitle = (_d = (_c = textFieldArgs.value) === null || _c === void 0 ? void 0 : _c.label) !== null && _d !== void 0 ? _d : '';
+                        }
+                        else {
+                            tooltipTitle = inputValue;
+                        }
+                    }
                     textFieldArgs.inputProps = Object.assign({ 'aria-describedby': props.error ? undefined : helperTextId, 'aria-errormessage': props.error ? helperTextId : undefined, 'aria-labelledby': props.id ? `${props.id}-label` : undefined }, textFieldArgs.inputProps);
                     return (react_1.default.createElement(Tooltip_1.default, { title: tooltipTitle, tooltipsize: "small" },
                         react_1.default.createElement(TextField_1.default, Object.assign({}, textFieldArgs, { inputRef: textfieldRef }))));
@@ -175,7 +212,7 @@ const getMuiAutocompleteThemeOverrides = () => {
                                 paddingBottom: '5px',
                                 paddingLeft: '8px',
                                 height: '28px',
-                                '&.MuiOutlinedInput-root .MuiAutocomplete-input': Object.assign(Object.assign({}, theme_1.TYPOGRAPHY.body2), { padding: '0px', marginRight: ownerState.error ? '58px' : '48px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block', '&::placeholder': {
+                                '&.MuiOutlinedInput-root .MuiAutocomplete-input': Object.assign(Object.assign({}, theme_1.TYPOGRAPHY.body2), { padding: '0px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block', '&::placeholder': {
                                         fontStyle: 'italic',
                                         color: theme.palette.text.secondary,
                                         opacity: 9,
