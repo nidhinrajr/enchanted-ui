@@ -109,6 +109,7 @@ const Autocomplete = (_a) => {
     const textfieldRef = react_1.default.useRef(null);
     const [isValueOverFlowing, setIsValueOverFlowing] = react_1.default.useState(false);
     const [prevValue, setPrevValue] = react_1.default.useState('');
+    const [selectedOption, setSelectedOption] = react_1.default.useState();
     react_1.default.useEffect(() => {
         const textFieldElement = textfieldRef.current;
         if (textFieldElement && textFieldElement.scrollWidth > textFieldElement.clientWidth) {
@@ -117,26 +118,50 @@ const Autocomplete = (_a) => {
         else {
             setIsValueOverFlowing(false);
         }
-    }, [props.value]);
+    }, [props.value, prevValue]);
     const getAdornmentWidth = react_1.default.useCallback(() => {
         var _a, _b;
-        const parentWidth = ((_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.offsetWidth) || 0;
         let iconCount = 0;
+        const parentWidth = ((_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.offsetWidth) || 0;
         // show three icon
         if (props.disabled) { // two icon show either error or caret
             iconCount += props.freeSolo ? 0 : 1;
         }
-        else { // three icon show caret & close icon or error
-            iconCount += !props.freeSolo ? 2 : 1;
+        else {
+            // freeSolo is false - two icon show either error or caret and clear icon
+            // disableClearable is true - one icon show caret down icon only
+            // eslint-why - a nested ternary is needed
+            // eslint-disable-next-line no-nested-ternary
+            iconCount += !props.freeSolo ? (props.disableClearable ? 1 : 2) : 1;
         }
         if (props.error) {
             iconCount += 1;
         }
         // Calculate the total width needed for the input adornment area based on the number of icons.
-        // Each icon is assumed to be 21px wide. If the parent width is very small (<= 150px), subtract 3px for tighter spacing.
-        const iconWidth = ((iconCount) * 21 - (parentWidth <= 150 ? 3 : 0));
+        // Each icon is assumed to be 21px wide. If the parent width is very small (<= 150px), subtract 5px for tighter spacing.
+        const iconWidth = ((iconCount) * 21 - (parentWidth <= 150 ? 5 : 0));
         return Math.max(iconWidth, 0);
     }, [props.error, props.freeSolo, props.disabled, textfieldRef]);
+    const handleChange = (event, value) => {
+        // Value can be an option from the list or null if cleared
+        setSelectedOption(value);
+        if (textfieldRef.current) {
+            setPrevValue(textfieldRef.current.value);
+        }
+        // Call the existing onChange from props if it exists
+        if (rest.onChange) {
+            rest.onChange(event, value, 'selectOption');
+        }
+    };
+    const handleInputChange = (event, inputValue, reason) => {
+        // When user types, we clear the selectedOption as it's no longer a confirmed selection
+        setSelectedOption(null);
+        setPrevValue(inputValue);
+        // Call the existing onInputChange from props if it exists
+        if (rest.onInputChange) {
+            rest.onInputChange(event, inputValue, reason);
+        }
+    };
     return (react_1.default.createElement(AutoCompleteContainer, { className: "autocomplete-container" },
         react_1.default.createElement(FormControl_1.default, Object.assign({}, muiFormControlProps),
             react_1.default.createElement(InputLabelAndAction_1.default, Object.assign({}, inputLabelAndActionProps)),
@@ -144,11 +169,8 @@ const Autocomplete = (_a) => {
                     setIsFocus(true);
                 }, onBlur: () => {
                     setIsFocus(false);
-                    if (textfieldRef.current) {
-                        setPrevValue(textfieldRef.current.value);
-                    }
-                }, clearIcon: props.clearIcon ? props.clearIcon : react_1.default.createElement(close_1.default, { color: "action" }), popupIcon: react_1.default.createElement(caret__down_1.default, { color: "action" }), renderInput: (params) => {
-                    var _a, _b, _c, _d;
+                }, onChange: handleChange, onInputChange: handleInputChange, clearIcon: props.clearIcon ? props.clearIcon : react_1.default.createElement(close_1.default, { color: "action" }), popupIcon: react_1.default.createElement(caret__down_1.default, { color: "action" }), renderInput: (params) => {
+                    var _a, _b;
                     const textFieldArgs = Object.assign(Object.assign({}, params), { placeholder: props.placeholder, error: Boolean(props.error), required: props.required, fullWidth: props.fullWidth, sx: Object.assign(Object.assign({}, props.sx), { '& .MuiInputAdornment-root': {
                                 width: getAdornmentWidth(),
                             } }), focused,
@@ -157,18 +179,38 @@ const Autocomplete = (_a) => {
                         actionProps,
                         nonEdit, size: props.size, autoFocus: props.autoFocus, renderNonEditInput,
                         endAdornmentAction, value: props.value, enableHelpHoverEffect });
-                    const inputValue = (_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '';
                     let tooltipTitle = '';
-                    if (isValueOverFlowing) {
-                        if (props.freeSolo) {
-                            tooltipTitle = inputValue;
-                        }
-                        else if (inputValue === prevValue) {
-                            tooltipTitle = (_d = (_c = textFieldArgs.value) === null || _c === void 0 ? void 0 : _c.label) !== null && _d !== void 0 ? _d : '';
-                        }
-                        else {
-                            tooltipTitle = inputValue;
-                        }
+                    const inputValue = (_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '';
+                    // Helper to check if a value matches an option
+                    const isValueInOptions = (selctedValue) => {
+                        if (!selctedValue)
+                            return false;
+                        return Array.isArray(props.options)
+                            ? props.options.some((option) => {
+                                if (typeof option === 'object' && option !== null) {
+                                    return option.label === selctedValue || option.value === selctedValue;
+                                }
+                                return option === selctedValue;
+                            })
+                            : false;
+                    };
+                    const hasSelectedValue = selectedOption && typeof selectedOption === 'object' && 'label' in selectedOption;
+                    const selectedValue = hasSelectedValue ? selectedOption.label : selectedOption;
+                    // Checking for selectedOption covers cases where user selects from dropdown or clears input
+                    if (selectedOption && isValueOverFlowing && isValueInOptions(selectedValue)) {
+                        tooltipTitle = selectedValue;
+                        // Checking for inputValue covers cases where user types a value and then selects it from the dropdown
+                    }
+                    else if (!selectedOption && isValueOverFlowing && isValueInOptions(inputValue)) {
+                        tooltipTitle = inputValue;
+                        // Checking for prevValue covers cases where user tabs back to a previous value or
+                    }
+                    else if ((prevValue === inputValue && isValueOverFlowing && isValueInOptions(prevValue))) {
+                        tooltipTitle = prevValue;
+                        // Checking for freeSolo mode where user can type arbitrary values
+                    }
+                    else if (isValueOverFlowing) {
+                        tooltipTitle = props.freeSolo ? inputValue : prevValue;
                     }
                     textFieldArgs.inputProps = Object.assign({ 'aria-describedby': props.error ? undefined : helperTextId, 'aria-errormessage': props.error ? helperTextId : undefined, 'aria-labelledby': props.id ? `${props.id}-label` : undefined }, textFieldArgs.inputProps);
                     return (react_1.default.createElement(Tooltip_1.default, { title: tooltipTitle, tooltipsize: "small" },
