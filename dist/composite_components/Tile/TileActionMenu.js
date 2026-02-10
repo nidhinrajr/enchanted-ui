@@ -101,7 +101,6 @@ const TileActionMenu = (props) => {
         isTrash && !hasThumbnail && (react_1.default.createElement(Tooltip_1.default, { title: props.trashInfoTooltip || '', componentsProps: {
                 tooltip: {
                     sx: {
-                        // Layout and positioning
                         display: 'flex',
                         flexDirection: 'row',
                         alignItems: 'flex-start',
@@ -110,7 +109,6 @@ const TileActionMenu = (props) => {
                         background: 'rgba(56, 56, 56, 1)',
                         borderRadius: '2px',
                         maxWidth: '300px',
-                        // Typography styles
                         fontSize: '12px',
                         lineHeight: '16px',
                         color: 'rgba(255, 255, 255, 0.93)',

@@ -80,27 +80,12 @@ const StyledLockNotice = (0, styles_1.styled)('div')(() => {
         alignItems: 'center',
         padding: '4px',
         gap: '4px',
-        height: '24px',
         background: 'rgba(30, 30, 30, 0.8)',
         borderRadius: '2px',
         flex: 'none',
         order: 1,
         flexGrow: 0,
         zIndex: 1,
-    };
-});
-// Using built-in typography variant="body2"
-const StyledLockNoticeText = (0, styles_1.styled)(Typography_1.default)(() => {
-    return {
-        width: '45px',
-        height: '16px',
-        fontSize: '12px',
-        lineHeight: '16px',
-        letterSpacing: '0px',
-        color: 'rgba(255, 255, 255, 0.7)',
-        flex: 'none',
-        order: 1,
-        flexGrow: 0,
     };
 });
 const StyledImageListItem = (0, styles_1.styled)(material_1.ImageListItem)(({ theme }) => {
@@ -269,7 +254,7 @@ const Tile = (props) => {
             }, tabIndex: 0, role: "listitem", "aria-current": activeItem === itemId, "aria-label": ariaLabel, "aria-labelledby": ariaLabelledBy, ref: tileRef },
             props.syncIcon && (react_1.default.createElement(StyledSyncIcon, null, props.syncIcon)),
             showLockNotice && (react_1.default.createElement(StyledLockNotice, null,
-                react_1.default.createElement(StyledLockNoticeText, { variant: "body2" }, lockNoticeText))),
+                react_1.default.createElement(Typography_1.default, { variant: "body2", sx: { color: 'rgba(255, 255, 255, 0.7)' } }, lockNoticeText))),
             (imageUrl && !avatar && hasThumbnail) && (react_1.default.createElement(ImageContainer, null,
                 react_1.default.createElement("img", { style: {
                         display: 'block',
