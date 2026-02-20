@@ -1,6 +1,6 @@
 import React from 'react';
 import { SelectProps as MuiSelectProps } from '@mui/material/Select';
-import { Components, Theme } from '@mui/material';
+import { Components, Theme, SvgIconProps } from '@mui/material';
 import { ActionProps } from '../prerequisite_components/InputLabelAndAction';
 export interface SelectProps extends MuiSelectProps {
     nonEdit?: boolean;
@@ -17,6 +17,7 @@ export interface SelectProps extends MuiSelectProps {
     }[];
     hiddenLabel?: boolean;
     value?: string;
+    customIcon?: React.ComponentType<SvgIconProps> | undefined;
 }
 export declare const getMuiSelectThemeOverrides: () => Components<Omit<Theme, 'components'>>;
 declare const Select: React.FC<SelectProps>;

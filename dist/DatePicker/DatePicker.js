@@ -29,7 +29,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /* ======================================================================== *
- * Copyright 2024, 2025 HCL America Inc.                                    *
+ * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -188,7 +188,7 @@ const DatePicker = (_a) => {
                 error = !valid;
             }
         }
-        const textFieldProps = Object.assign(Object.assign({}, muiTextFieldProps), { inputRef: muiTextFieldProps.inputRef, label: props.label, helperText: props.helperText, enableHelpHoverEffect: props.enableHelpHoverEffect, helperIconTooltip: props.helperIconTooltip, required: props.required, disabled: props.disabled, margin: props.margin, color: props.color, size: props.size, autoComplete: 'off', error: props.error || error, fullWidth: props.fullWidth, unitLabel: props.unitLabel, hiddenLabel: props.hiddenLabel, nonEdit: props.nonEdit, value: props.value !== null ? `${formatValue(props.value, props.format || DEFAULT_FORMAT)}` : '', actionProps: props.actionProps, InputProps: Object.assign({}, muiTextFieldProps.InputProps), inputProps: Object.assign(Object.assign({}, muiTextFieldProps.inputProps), { placeholder: props.format }) });
+        const textFieldProps = Object.assign(Object.assign({}, muiTextFieldProps), { inputRef: muiTextFieldProps.inputRef, label: props.label, helperText: props.helperText, enableHelpHoverEffect: props.enableHelpHoverEffect, helperIconTooltip: props.helperIconTooltip, required: props.required, disabled: props.disabled, margin: props.margin, color: props.color, size: props.size, autoComplete: 'off', error: props.error || error, fullWidth: props.fullWidth, unitLabel: props.unitLabel, hiddenLabel: props.hiddenLabel, nonEdit: props.nonEdit, value: props.value !== null ? `${formatValue(props.value, props.format || DEFAULT_FORMAT)}` : '', actionProps: props.actionProps, InputProps: Object.assign({}, muiTextFieldProps.InputProps), inputProps: Object.assign(Object.assign({}, muiTextFieldProps.inputProps), { placeholder: props.format }), customIcon: props.customIcon });
         return textFieldProps;
     };
     return (react_1.default.createElement(DatePicker_1.DatePicker, Object.assign({}, props, { reduceAnimations: true, autoFocus: false, onOpen: focusDialog, dayOfWeekFormatter: (day) => { return day; }, PaperProps: {
