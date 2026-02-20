@@ -1,6 +1,6 @@
 import React from 'react';
 import { AutocompleteProps as MuiAutocompleteProps } from '@mui/material/Autocomplete';
-import { Components, Theme } from '@mui/material';
+import { Components, SvgIconProps, Theme } from '@mui/material';
 import { ActionProps } from '../prerequisite_components/InputLabelAndAction/InputLabelAndAction';
 import { TooltipPlacement } from '../Tooltip';
 /**
@@ -26,6 +26,9 @@ export interface AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> exte
     endAdornmentAction?: React.ReactNode;
     renderNonEditInput?: () => React.ReactNode;
     placeholder?: string;
+    customIcon?: React.ComponentType<SvgIconProps> | undefined;
+    startAdornment?: React.ReactNode;
+    endAdornment?: React.ReactNode;
 }
 declare const Autocomplete: {
     <T, Multiple extends boolean | undefined = undefined, DisableClearable extends boolean | undefined = undefined, FreeSolo extends boolean | undefined = undefined>({ ...props }: AutocompleteProps<T, Multiple, DisableClearable, FreeSolo>): React.JSX.Element;

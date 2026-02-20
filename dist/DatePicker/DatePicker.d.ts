@@ -1,5 +1,6 @@
 import React from 'react';
 import { DatePickerProps as MuiDatePickerProps } from '@mui/x-date-pickers/DatePicker';
+import { SvgIconProps } from '@mui/material';
 import { ActionProps } from '../prerequisite_components/InputLabelAndAction/InputLabelAndAction';
 export interface DatePickerProps<TInputDate, TDate> extends Omit<MuiDatePickerProps<TInputDate, TDate>, 'renderInput'> {
     label?: string;
@@ -21,6 +22,7 @@ export interface DatePickerProps<TInputDate, TDate> extends Omit<MuiDatePickerPr
     customStyles?: React.CSSProperties | {
         [key: string]: React.CSSProperties;
     };
+    customIcon?: React.ComponentType<SvgIconProps> | undefined;
 }
 declare const DatePicker: {
     <TInputDate, TDate>({ ...props }: DatePickerProps<TInputDate, TDate>): React.JSX.Element;

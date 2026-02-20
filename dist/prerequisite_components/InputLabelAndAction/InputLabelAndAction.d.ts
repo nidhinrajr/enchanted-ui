@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { InputLabelProps as MuiInputLabelProps } from '@mui/material/InputLabel';
-import { Theme } from '@mui/material';
+import { Theme, SvgIconProps } from '@mui/material';
 import { TooltipPlacement } from '../../Tooltip';
 export interface ActionProps {
     href?: string;
@@ -19,6 +19,7 @@ export interface InputLabelAndActionProps extends MuiInputLabelProps {
     isFocus?: boolean;
     fullWidth?: boolean;
     enableHelpHoverEffect?: boolean;
+    customIcon?: React.ComponentType<SvgIconProps>;
 }
 export declare const labelFocus: import("@emotion/styled").StyledComponent<import("@mui/system").MUIStyledCommonProps<Theme>, React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, {}>;
 export declare const MuiInputHelpIcon: import("@emotion/styled").StyledComponent<{
