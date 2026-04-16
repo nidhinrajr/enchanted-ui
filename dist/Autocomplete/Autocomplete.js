@@ -45,6 +45,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMuiAutocompleteThemeOverrides = void 0;
 const react_1 = __importDefault(require("react"));
 const Autocomplete_1 = __importDefault(require("@mui/material/Autocomplete"));
+const material_1 = require("@mui/material");
 const caret__down_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/caret--down"));
 const close_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/close"));
 const FormHelperText_1 = __importDefault(require("@mui/material/FormHelperText"));
@@ -185,7 +186,7 @@ const Autocomplete = (_a) => {
                 }, onBlur: () => {
                     setIsFocus(false);
                 }, onChange: handleChange, onInputChange: handleInputChange, clearIcon: props.clearIcon ? props.clearIcon : react_1.default.createElement(close_1.default, { color: "action" }), popupIcon: react_1.default.createElement(caret__down_1.default, { color: "action" }), renderInput: (params) => {
-                    var _a, _b, _c, _d;
+                    var _a, _b, _c, _d, _e;
                     const textFieldArgs = Object.assign(Object.assign({}, params), { placeholder: props.placeholder, error: Boolean(props.error), required: props.required, fullWidth: props.fullWidth, sx: Object.assign(Object.assign({}, props.sx), { '& .MuiInputAdornment-root.MuiInputAdornment-positionStart': {
                                 width: getStartAdornmentWidth(),
                             }, '& .MuiInputAdornment-root.MuiInputAdornment-positionEnd': {
@@ -196,11 +197,15 @@ const Autocomplete = (_a) => {
                         helperIconTooltip,
                         actionProps,
                         nonEdit, size: props.size, autoFocus: props.autoFocus, renderNonEditInput,
-                        endAdornmentAction, value: props.value, enableHelpHoverEffect, InputProps: Object.assign(Object.assign({}, params.InputProps), { startAdornment: startAdornment !== null && startAdornment !== void 0 ? startAdornment : (_a = params.InputProps) === null || _a === void 0 ? void 0 : _a.startAdornment, endAdornment: (react_1.default.createElement(react_1.default.Fragment, null,
-                                endAdornment, (_b = params.InputProps) === null || _b === void 0 ? void 0 :
-                                _b.endAdornment)) }) });
+                        endAdornmentAction, value: props.value, enableHelpHoverEffect, InputProps: Object.assign(Object.assign({}, params.InputProps), { startAdornment: startAdornment
+                                ? (react_1.default.createElement(react_1.default.Fragment, null,
+                                    react_1.default.createElement(material_1.InputAdornment, { position: "start" }, startAdornment), (_a = params.InputProps) === null || _a === void 0 ? void 0 :
+                                    _a.startAdornment))
+                                : (_b = params.InputProps) === null || _b === void 0 ? void 0 : _b.startAdornment, endAdornment: (react_1.default.createElement(react_1.default.Fragment, null,
+                                endAdornment, (_c = params.InputProps) === null || _c === void 0 ? void 0 :
+                                _c.endAdornment)) }) });
                     let tooltipTitle = '';
-                    const inputValue = (_d = (_c = textfieldRef.current) === null || _c === void 0 ? void 0 : _c.value) !== null && _d !== void 0 ? _d : '';
+                    const inputValue = (_e = (_d = textfieldRef.current) === null || _d === void 0 ? void 0 : _d.value) !== null && _e !== void 0 ? _e : '';
                     // Helper to check if a value matches an option
                     const isValueInOptions = (selctedValue) => {
                         if (!selctedValue)

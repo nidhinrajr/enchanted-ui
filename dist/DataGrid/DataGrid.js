@@ -113,6 +113,8 @@ const StyledDataGrid = (0, material_1.styled)(x_data_grid_1.DataGrid)((props) =>
                 },
             },
         }, '& .MuiDataGrid-cell:focus': {
+            outline: 'none',
+        }, '& .MuiDataGrid-cell:focus-visible': {
             border: `1px ${theme.palette.action.focus} solid`,
             outline: 'none',
         }, '& .MuiDataGrid-hide-checkbox .MuiCheckbox-root': {
@@ -195,6 +197,8 @@ const StyledDataGrid = (0, material_1.styled)(x_data_grid_1.DataGrid)((props) =>
             border: 'none',
             borderBottom: `1px ${theme.palette.action.activeOpacity} solid !important`, // need to be important so border bottom will not primary when it is a checkbox cell
         }, '& .MuiDataGrid-cell:focus-within': {
+            outline: 'none',
+        }, '& .MuiDataGrid-cell:has(:focus-visible)': {
             outline: 'none',
             border: `1px ${theme.palette.action.focus} solid`,
             borderBottom: `1px ${theme.palette.action.focus} solid !important`, // need to be important to override data grid border bottom behaviour when focused

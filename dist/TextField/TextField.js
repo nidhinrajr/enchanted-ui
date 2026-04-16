@@ -245,10 +245,11 @@ const StyledMuiFormControl = (0, styles_1.styled)(FormControl_1.default)((theme)
 const getStartAdornment = (props, isComboBox) => {
     var _a;
     if ((_a = props.InputProps) === null || _a === void 0 ? void 0 : _a.startAdornment) {
-        if (!isComboBox) {
-            return props.InputProps.startAdornment;
-        }
-        return (react_1.default.createElement(material_1.InputAdornment, { position: "start" }, props.InputProps.startAdornment));
+        // For comboBox (Autocomplete), startAdornment may contain chips from MUI's
+        // multiple mode or custom icons already wrapped by Autocomplete.
+        // Pass through as-is to avoid double-wrapping in InputAdornment which
+        // constrains chips to fixed height and breaks chip layout.
+        return props.InputProps.startAdornment;
     }
     return null;
 };
