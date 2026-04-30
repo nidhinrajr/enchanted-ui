@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024, 2025 HCL America Inc.                                    *
+ * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -195,11 +195,21 @@ const getMuiTextFieldThemeOverrides = () => {
                         },
                         '& [class*=MuiInputAdornment-positionStart]': {
                             marginRight: '8px',
+                            height: '18px',
+                            '& svg:not(.MuiCircularProgress-svg)': {
+                                margin: '0px 0px 0px 4px',
+                                padding: '0px',
+                                fontSize: '16px',
+                            },
+                            '& [class*=MuiTypography-body2]': {
+                                margin: '0px 0px 0px 8px',
+                                cursor: 'default',
+                            },
                         },
                         '& [class*=MuiInputAdornment-positionEnd]': {
                             height: '18px',
-                            '& svg': {
-                                margin: '0px 0px 0px 4px',
+                            '& svg:not(.MuiCircularProgress-svg)': {
+                                margin: '0px',
                                 padding: '0px',
                                 fontSize: '16px',
                             },
@@ -232,6 +242,16 @@ const StyledMuiFormControl = (0, styles_1.styled)(FormControl_1.default)((theme)
         },
     };
 });
+const getStartAdornment = (props, isComboBox) => {
+    var _a;
+    if ((_a = props.InputProps) === null || _a === void 0 ? void 0 : _a.startAdornment) {
+        if (!isComboBox) {
+            return props.InputProps.startAdornment;
+        }
+        return (react_1.default.createElement(material_1.InputAdornment, { position: "start" }, props.InputProps.startAdornment));
+    }
+    return null;
+};
 const getEndAdornment = (props, isComboBox) => {
     var _a, _b;
     // This is workaround until proper Search component has already been implemented
@@ -263,6 +283,7 @@ const getInputLabelAndActionProps = (props, isFocus) => {
         fullWidth: props.fullWidth,
         isFocus,
         enableHelpHoverEffect: props.enableHelpHoverEffect,
+        customIcon: props.customIcon,
     };
     return inputLabelProps;
 };
@@ -293,7 +314,7 @@ const getMuiTextFieldProps = (props) => {
     delete cleanedProps.renderNonEditInput;
     delete cleanedProps.endAdornmentAction;
     delete cleanedProps.enableHelpHoverEffect;
-    const muiTextFieldProps = Object.assign(Object.assign({}, cleanedProps), { variant: 'outlined', label: undefined, InputProps: Object.assign(Object.assign({}, props.InputProps), { endAdornment: ((_c = props.InputProps) === null || _c === void 0 ? void 0 : _c.endAdornment) && !isComboBox
+    const muiTextFieldProps = Object.assign(Object.assign({}, cleanedProps), { variant: 'outlined', label: undefined, InputProps: Object.assign(Object.assign({}, props.InputProps), { startAdornment: getStartAdornment(props, isComboBox), endAdornment: ((_c = props.InputProps) === null || _c === void 0 ? void 0 : _c.endAdornment) && !isComboBox
                 ? (_d = props.InputProps) === null || _d === void 0 ? void 0 : _d.endAdornment
                 : react_1.default.createElement(material_1.InputAdornment, { position: "end" }, getEndAdornment(props, isComboBox)) }) });
     return muiTextFieldProps;
