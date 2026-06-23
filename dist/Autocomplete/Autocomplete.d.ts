@@ -4,6 +4,10 @@ import { Components, SvgIconProps, Theme } from '@mui/material';
 import { ActionProps } from '../prerequisite_components/InputLabelAndAction/InputLabelAndAction';
 import { TooltipPlacement } from '../Tooltip';
 /**
+ * Banner configuration for autocomplete listbox
+ */
+export type AutocompleteBannerProps = React.ReactNode;
+/**
  * @typedef AutocompleteProps
  * @type {object}
  * @property {boolean} error - Indicates the combobox value is invalid
@@ -29,6 +33,11 @@ export interface AutocompleteProps<T, Multiple, DisableClearable, FreeSolo> exte
     customIcon?: React.ComponentType<SvgIconProps> | undefined;
     startAdornment?: React.ReactNode;
     endAdornment?: React.ReactNode;
+    /**
+     * When provided, renders an informational banner at the top of the dropdown listbox.
+     * The banner is non-interactive and excluded from keyboard navigation.
+     */
+    listboxBanner?: AutocompleteBannerProps;
 }
 declare const Autocomplete: {
     <T, Multiple extends boolean | undefined = undefined, DisableClearable extends boolean | undefined = undefined, FreeSolo extends boolean | undefined = undefined>({ ...props }: AutocompleteProps<T, Multiple, DisableClearable, FreeSolo>): React.JSX.Element;

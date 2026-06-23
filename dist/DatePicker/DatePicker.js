@@ -10,6 +10,18 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
@@ -28,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DatePickerDefaults = void 0;
 /* ======================================================================== *
  * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
@@ -44,21 +57,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * ======================================================================== */
 const react_1 = __importDefault(require("react"));
 const DatePicker_1 = require("@mui/x-date-pickers/DatePicker");
+const StaticDatePicker_1 = require("@mui/x-date-pickers/StaticDatePicker");
 const dayjs_1 = __importDefault(require("dayjs"));
 const uuid_1 = require("uuid");
 const PickersDay_1 = require("@mui/x-date-pickers/PickersDay");
 const dot_mark_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/dot-mark"));
 const calendar_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/calendar"));
 const caret__down_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/caret--down"));
-const Badge_1 = __importDefault(require("../Badge/Badge"));
+const SvgIcon_1 = require("@mui/material/SvgIcon");
+const Paper_1 = __importDefault(require("../Paper"));
+const Badge_1 = __importStar(require("../Badge/Badge"));
 const TextField_1 = __importDefault(require("../TextField"));
 const DEFAULT_FORMAT = 'MM/DD/YYYY';
-const getDatePickerStyle = (theme, customStyles) => {
-    return Object.assign(Object.assign(Object.assign({}, theme.typography.body2), { margin: '6px 0px 0px -8px', padding: '0px', height: 'auto', width: '228px', color: `1px solid ${theme.palette.background.paper}`, boxShadow: theme.shadows[1], '& .MuiCalendarPicker-root': {
+// Shared formatter used by both static and regular date picker variants
+const dayOfWeekFormatter = (day) => { return day; };
+// Display mode for the static date picker
+const staticWrapperAs = 'desktop';
+const getDatePickerStyle = (theme, customStyles, staticMode) => {
+    return Object.assign(Object.assign(Object.assign({}, theme.typography.body2), { margin: staticMode ? '0px' : '6px 0px 0px -8px', padding: '0px', height: 'auto', width: '228px', color: `1px solid ${theme.palette.background.paper}`, boxShadow: 1, '& .MuiPickerStaticWrapper-content': {
+            minWidth: 'unset',
+        }, '& .MuiCalendarPicker-root': {
             width: '228px',
             margin: '0px',
             height: 'auto',
+            overflowY: 'hidden',
             flexGrow: 1,
+        }, '& .MuiYearPicker-root': {
+            maxHeight: '168px',
+            overflowY: 'auto',
         }, '& .MuiTouchRipple-root': {
             color: 'transparent',
             width: '228px',
@@ -78,7 +104,7 @@ const getDatePickerStyle = (theme, customStyles) => {
         }, '& .MuiDayPicker-weekDayLabel': Object.assign(Object.assign({}, theme.typography.body2), { color: theme.palette.text.secondary, margin: '4px 2px', width: '24px', padding: '0px', height: '16px' }), '& .MuiCalendarPicker-viewTransitionContainer': {
             width: '228px',
         }, '& .MuiDayPicker-header': Object.assign(Object.assign({}, theme.typography.body1), { width: '228px' }), '& .MuiIconButton-root': {
-            '& .MuiSvgIcon-root': {
+            [`& .${SvgIcon_1.svgIconClasses.root}`]: {
                 padding: '0px',
                 width: '16px',
                 height: '16px',
@@ -133,15 +159,38 @@ const getDatePickerStyle = (theme, customStyles) => {
             display: '-webkit-box',
             padding: '12px 0px',
             justifyContent: 'center',
+            borderTop: 'none',
         }, '& .MuiPickersArrowSwitcher-button': {
             '&:hover': {
                 backgroundColor: theme.palette.action.hover,
             },
         } }), customStyles);
 };
+/**
+ * Default prop values for DatePicker.
+ * Exported for use in Storybook argTypes and story args.
+ */
+exports.DatePickerDefaults = {
+    margin: 'none',
+    color: 'primary',
+    size: 'medium',
+    label: '',
+    helperText: '',
+    enableHelpHoverEffect: false,
+    helperIconTooltip: '',
+    format: DEFAULT_FORMAT,
+    unitLabel: '',
+    required: false,
+    disabled: false,
+    fullWidth: false,
+    hiddenLabel: false,
+    nonEdit: false,
+    showDaysOutsideCurrentMonth: true,
+    error: false,
+    staticMode: false,
+};
 const DatePicker = (_a) => {
-    var props = __rest(_a, []);
-    const { customStyles = {} } = props;
+    var { customStyles = {}, staticMode = false, margin = 'none', color = 'primary', size = 'medium', label = '', helperText = '', enableHelpHoverEffect = false, helperIconTooltip = '', format = DEFAULT_FORMAT, unitLabel = '', required = false, disabled = false, fullWidth = false, hiddenLabel = false, nonEdit = false, error = false, actionProps, customIcon, value } = _a, muiProps = __rest(_a, ["customStyles", "staticMode", "margin", "color", "size", "label", "helperText", "enableHelpHoverEffect", "helperIconTooltip", "format", "unitLabel", "required", "disabled", "fullWidth", "hiddenLabel", "nonEdit", "error", "actionProps", "customIcon", "value"]);
     const popperId = (0, uuid_1.v4)();
     const handleOnKeyDownLeft = (event) => {
         var _a;
@@ -161,8 +210,8 @@ const DatePicker = (_a) => {
             }
         }
     };
-    const formatValue = (value, format) => {
-        return value.format(format);
+    const formatValue = (dateValue, dateFormat) => {
+        return dateValue.format(dateFormat);
     };
     const focusDialog = () => {
         window.requestAnimationFrame(() => {
@@ -180,18 +229,67 @@ const DatePicker = (_a) => {
         });
     };
     const getTextFieldProps = (muiTextFieldProps) => {
-        let error = false;
-        if (props.value !== null) {
-            const day = props.value;
+        let hasError = false;
+        if (value !== null) {
+            const day = value;
             if (!Number.isNaN(day.day()) && !Number.isNaN(day.month()) && !Number.isNaN(day.year())) {
-                const valid = (0, dayjs_1.default)(day, props.format, true).isValid();
-                error = !valid;
+                const valid = (0, dayjs_1.default)(day, format, true).isValid();
+                hasError = !valid;
             }
         }
-        const textFieldProps = Object.assign(Object.assign({}, muiTextFieldProps), { inputRef: muiTextFieldProps.inputRef, label: props.label, helperText: props.helperText, enableHelpHoverEffect: props.enableHelpHoverEffect, helperIconTooltip: props.helperIconTooltip, required: props.required, disabled: props.disabled, margin: props.margin, color: props.color, size: props.size, autoComplete: 'off', error: props.error || error, fullWidth: props.fullWidth, unitLabel: props.unitLabel, hiddenLabel: props.hiddenLabel, nonEdit: props.nonEdit, value: props.value !== null ? `${formatValue(props.value, props.format || DEFAULT_FORMAT)}` : '', actionProps: props.actionProps, InputProps: Object.assign({}, muiTextFieldProps.InputProps), inputProps: Object.assign(Object.assign({}, muiTextFieldProps.inputProps), { placeholder: props.format }), customIcon: props.customIcon });
+        const textFieldProps = Object.assign(Object.assign({}, muiTextFieldProps), { inputRef: muiTextFieldProps.inputRef, label,
+            helperText,
+            enableHelpHoverEffect,
+            helperIconTooltip,
+            required,
+            disabled,
+            margin,
+            color,
+            size, autoComplete: 'off', error: error || hasError, fullWidth,
+            unitLabel,
+            hiddenLabel,
+            nonEdit, value: value !== null ? `${formatValue(value, format || DEFAULT_FORMAT)}` : '', actionProps, InputProps: Object.assign({}, muiTextFieldProps.InputProps), inputProps: Object.assign(Object.assign({}, muiTextFieldProps.inputProps), { placeholder: format }), customIcon });
         return textFieldProps;
     };
-    return (react_1.default.createElement(DatePicker_1.DatePicker, Object.assign({}, props, { reduceAnimations: true, autoFocus: false, onOpen: focusDialog, dayOfWeekFormatter: (day) => { return day; }, PaperProps: {
+    const renderDay = (day, _value, DayComponentProps) => {
+        return (react_1.default.createElement(Badge_1.default, { key: day.toString(), overlap: "circular", variant: "standard", color: (DayComponentProps.today && DayComponentProps.selected) ? 'default' : 'primary', badgeContent: DayComponentProps.today ? react_1.default.createElement(dot_mark_1.default, { fontSize: "small" }) : undefined, anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'right',
+            }, sx: {
+                [`& .${Badge_1.badgeClasses.badge}`]: {
+                    right: '50%',
+                    padding: '1px',
+                    width: '4px',
+                    height: '1px',
+                    borderRadius: 'unset',
+                    minWidth: '0px',
+                    top: '70%',
+                    [`& .${SvgIcon_1.svgIconClasses.root}`]: Object.assign(Object.assign(Object.assign({}, (DayComponentProps.today && DayComponentProps.selected) && {
+                        fill: 'common.white',
+                        width: '2px',
+                        height: '2px',
+                    }), !(DayComponentProps.today && DayComponentProps.selected) && {
+                        fill: 'none',
+                        width: '1px',
+                        height: '1px',
+                    }), { fontSize: '1px' }),
+                },
+            } },
+            react_1.default.createElement(PickersDay_1.PickersDay, Object.assign({}, DayComponentProps))));
+    };
+    // Static mode - render calendar without input field
+    if (staticMode) {
+        return (react_1.default.createElement(Paper_1.default, { variant: "elevation", sx: (theme) => { return getDatePickerStyle(theme, customStyles, true); } },
+            react_1.default.createElement(StaticDatePicker_1.StaticDatePicker, Object.assign({}, muiProps, { disabled: disabled, value: value, displayStaticWrapperAs: staticWrapperAs, reduceAnimations: true, dayOfWeekFormatter: dayOfWeekFormatter, componentsProps: {
+                    actionBar: { actions: ['today'] },
+                    leftArrowButton: { onKeyDown: handleOnKeyDownLeft },
+                    rightArrowButton: { onKeyDown: handleOnKeyDownRight },
+                }, components: {
+                    SwitchViewIcon: caret__down_1.default,
+                }, renderDay: renderDay, renderInput: (_params) => { return react_1.default.createElement("span", null); } }))));
+    }
+    // Render regular DatePicker with input field
+    return (react_1.default.createElement(DatePicker_1.DatePicker, Object.assign({}, muiProps, { disabled: disabled, value: value, reduceAnimations: true, autoFocus: false, onOpen: focusDialog, dayOfWeekFormatter: dayOfWeekFormatter, PaperProps: {
             sx: (theme) => { return getDatePickerStyle(theme, customStyles); },
         }, PopperProps: {
             placement: 'bottom-start',
@@ -206,50 +304,7 @@ const DatePicker = (_a) => {
         }, renderInput: (params) => {
             const textFieldProps = getTextFieldProps(params);
             return (react_1.default.createElement(TextField_1.default, Object.assign({}, textFieldProps)));
-        }, renderDay: (day, _value, DayComponentProps) => {
-            return (react_1.default.createElement(Badge_1.default, { key: day.toString(), overlap: "circular", variant: "standard", color: (DayComponentProps.today && DayComponentProps.selected) ? 'default' : 'primary', badgeContent: DayComponentProps.today ? react_1.default.createElement(dot_mark_1.default, { fontSize: "small" }) : undefined, anchorOrigin: {
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                }, sx: {
-                    '& .MuiBadge-badge': {
-                        right: '50%',
-                        padding: '1px',
-                        width: '4px',
-                        height: '1px',
-                        borderRadius: 'unset',
-                        minWidth: '0px',
-                        top: '70%',
-                        '& .MuiSvgIcon-root': Object.assign(Object.assign(Object.assign({}, (DayComponentProps.today && DayComponentProps.selected) && {
-                            fill: (theme) => { return theme.palette.common.white; },
-                            width: '2px',
-                            height: '2px',
-                        }), !(DayComponentProps.today && DayComponentProps.selected) && {
-                            fill: 'none',
-                            width: '1px',
-                            height: '1px',
-                        }), { fontSize: '1px' }),
-                    },
-                } },
-                react_1.default.createElement(PickersDay_1.PickersDay, Object.assign({}, DayComponentProps))));
-        } })));
-};
-DatePicker.defaultProps = {
-    margin: 'none',
-    color: 'primary',
-    size: 'medium',
-    label: '',
-    helperText: '',
-    enableHelpHoverEffect: false,
-    helperIconTooltip: '',
-    format: DEFAULT_FORMAT,
-    unitLabel: '',
-    required: false,
-    disabled: false,
-    fullWidth: false,
-    hiddenLabel: false,
-    nonEdit: false,
-    showDaysOutsideCurrentMonth: true,
-    error: false,
+        }, renderDay: renderDay })));
 };
 __exportStar(require("@mui/x-date-pickers/DatePicker"), exports);
 exports.default = DatePicker;
