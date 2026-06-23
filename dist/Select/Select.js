@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024, 2025 HCL America Inc.                                    *
+ * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -223,6 +223,7 @@ const getInputLabelAndActionProps = (props) => {
         hiddenLabel: props.hiddenLabel,
         fullWidth: props.fullWidth,
         enableHelpHoverEffect: props.enableHelpHoverEffect,
+        customIcon: props.customIcon,
     };
     return inputLabelProps;
 };

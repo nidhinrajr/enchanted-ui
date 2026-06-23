@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StyledSpan = exports.MuiGrid = exports.StyledInputLabel = exports.MuiInputHelpIcon = exports.labelFocus = void 0;
 /* ======================================================================== *
- * Copyright 2024, 2025 HCL America Inc.                                    *
+ * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -78,6 +78,9 @@ exports.MuiInputHelpIcon = (0, material_1.styled)(help_1.default, {
         },
     }));
 });
+const styledCustomIcon = (Icon) => {
+    return react_1.default.createElement(Icon, { sx: { marginLeft: '8px', marginBottom: '-4px', fontSize: '16px' }, color: "action", fontSize: "small" });
+};
 exports.StyledInputLabel = (0, material_1.styled)(InputLabel_1.default)((theme) => {
     return Object.assign(Object.assign({}, theme.theme.typography.subtitle2), { color: theme.theme.palette.text.secondary, margin: '0px', pointerEvents: 'inherit', position: 'relative', display: 'inline-flex', alignItems: 'center', transform: 'none' });
 });
@@ -108,7 +111,7 @@ const renderInputLabel = (props) => {
                 });
             } }), props.label),
         props.helperIconTooltip ? (react_1.default.createElement(Tooltip_1.default, { title: props.helperIconTooltip, placement: props.tooltipPlacement || Tooltip_1.TooltipPlacement.BOTTOM },
-            react_1.default.createElement(exports.MuiInputHelpIcon, { color: "action", fontSize: "small", tabIndex: 0, enableHelpHoverEffect: props.enableHelpHoverEffect }))) : ('')));
+            react_1.default.createElement("span", null, props.customIcon ? styledCustomIcon(props.customIcon) : react_1.default.createElement(exports.MuiInputHelpIcon, { color: "action", fontSize: "small", tabIndex: 0, enableHelpHoverEffect: props.enableHelpHoverEffect })))) : ('')));
 };
 exports.MuiGrid = (0, material_1.styled)(Grid_1.default)((theme) => {
     return {

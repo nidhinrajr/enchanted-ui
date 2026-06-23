@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024, 2025 HCL America Inc.                                    *
+ * Copyright 2026 HCL America Inc.                                          *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -90,13 +90,14 @@ const getInputLabelAndActionProps = (props, isFocus) => {
         isFocus,
         fullWidth: props.fullWidth,
         enableHelpHoverEffect: props.enableHelpHoverEffect,
+        customIcon: props.customIcon,
     };
     return inputLabelProps;
 };
 const Autocomplete = (_a) => {
     var _b;
     var props = __rest(_a, []);
-    const { helperText, helperIconTooltip, actionProps, focused, hiddenLabel, nonEdit, enableHelpHoverEffect, renderNonEditInput, endAdornmentAction } = props, rest = __rest(props, ["helperText", "helperIconTooltip", "actionProps", "focused", "hiddenLabel", "nonEdit", "enableHelpHoverEffect", "renderNonEditInput", "endAdornmentAction"]) // clean up rest of props for MuiAutocomplete tag
+    const { helperText, helperIconTooltip, actionProps, focused, hiddenLabel, nonEdit, enableHelpHoverEffect, renderNonEditInput, endAdornmentAction, startAdornment, endAdornment } = props, rest = __rest(props, ["helperText", "helperIconTooltip", "actionProps", "focused", "hiddenLabel", "nonEdit", "enableHelpHoverEffect", "renderNonEditInput", "endAdornmentAction", "startAdornment", "endAdornment"]) // clean up rest of props for MuiAutocomplete tag
     ;
     // prevents DOM warning for error=boolean
     rest.error = rest.error ? 1 : 0;
@@ -119,29 +120,43 @@ const Autocomplete = (_a) => {
             setIsValueOverFlowing(false);
         }
     }, [props.value, prevValue]);
-    const getAdornmentWidth = react_1.default.useCallback(() => {
+    const getIconsCount = react_1.default.useCallback((adornment) => {
+        return react_1.default.Children.toArray(adornment).filter((child) => { return react_1.default.isValidElement(child); }).length;
+    }, []);
+    const getStartAdornmentWidth = react_1.default.useCallback(() => {
         var _a, _b;
         let iconCount = 0;
         const parentWidth = ((_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.offsetWidth) || 0;
-        // show three icon
-        if (props.disabled) { // two icon show either error or caret
-            iconCount += props.freeSolo ? 0 : 1;
+        if (props.startAdornment) {
+            iconCount += getIconsCount(props.startAdornment);
         }
-        else {
-            // freeSolo is false - two icon show either error or caret and clear icon
-            // disableClearable is true - one icon show caret down icon only
-            // eslint-why - a nested ternary is needed
-            // eslint-disable-next-line no-nested-ternary
-            iconCount += !props.freeSolo ? (props.disableClearable ? 1 : 2) : 1;
+        // Each icon is assumed to be 21px wide. If the parent width is very small (<= 150px), subtract 5px for tighter spacing.
+        const iconWidth = ((iconCount) * 21 - (parentWidth <= 150 ? 5 : 0));
+        return Math.max(iconWidth, 0);
+    }, [props.startAdornment]);
+    const getEndAdornmentWidth = react_1.default.useCallback(() => {
+        var _a, _b, _c;
+        let iconCount = 0;
+        const parentWidth = ((_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.offsetWidth) || 0;
+        if (props.endAdornment) {
+            iconCount += getIconsCount(props.endAdornment);
         }
-        if (props.error) {
-            iconCount += 1;
+        // Check for freeSolo first because if it's true, then the caret down icon will not be shown.
+        iconCount += props.freeSolo ? 0 : 1;
+        // Check if the component is disabled or disableClearable is true.
+        // If either is true, the clear icon will not be shown.
+        if (!props.disabled && !((_c = props.disableClearable) !== null && _c !== void 0 ? _c : false)) {
+            if (props.value) {
+                iconCount += 1; // show clear icon
+            }
         }
+        // Check if error icon should be shown.
+        iconCount += props.error ? 1 : 0;
         // Calculate the total width needed for the input adornment area based on the number of icons.
         // Each icon is assumed to be 21px wide. If the parent width is very small (<= 150px), subtract 5px for tighter spacing.
         const iconWidth = ((iconCount) * 21 - (parentWidth <= 150 ? 5 : 0));
         return Math.max(iconWidth, 0);
-    }, [props.error, props.freeSolo, props.disabled, textfieldRef]);
+    }, [props.endAdornment, props.error, props.freeSolo, props.disabled, textfieldRef]);
     const handleChange = (event, value) => {
         // Value can be an option from the list or null if cleared
         setSelectedOption(value);
@@ -170,17 +185,22 @@ const Autocomplete = (_a) => {
                 }, onBlur: () => {
                     setIsFocus(false);
                 }, onChange: handleChange, onInputChange: handleInputChange, clearIcon: props.clearIcon ? props.clearIcon : react_1.default.createElement(close_1.default, { color: "action" }), popupIcon: react_1.default.createElement(caret__down_1.default, { color: "action" }), renderInput: (params) => {
-                    var _a, _b;
-                    const textFieldArgs = Object.assign(Object.assign({}, params), { placeholder: props.placeholder, error: Boolean(props.error), required: props.required, fullWidth: props.fullWidth, sx: Object.assign(Object.assign({}, props.sx), { '& .MuiInputAdornment-root': {
-                                width: getAdornmentWidth(),
+                    var _a, _b, _c, _d;
+                    const textFieldArgs = Object.assign(Object.assign({}, params), { placeholder: props.placeholder, error: Boolean(props.error), required: props.required, fullWidth: props.fullWidth, sx: Object.assign(Object.assign({}, props.sx), { '& .MuiInputAdornment-root.MuiInputAdornment-positionStart': {
+                                width: getStartAdornmentWidth(),
+                            }, '& .MuiInputAdornment-root.MuiInputAdornment-positionEnd': {
+                                width: getEndAdornmentWidth(),
+                                marginLeft: getEndAdornmentWidth() > 0 ? '8px' : '0px', // add some spacing if there are icons in the end adornment
                             } }), focused,
                         hiddenLabel,
                         helperIconTooltip,
                         actionProps,
                         nonEdit, size: props.size, autoFocus: props.autoFocus, renderNonEditInput,
-                        endAdornmentAction, value: props.value, enableHelpHoverEffect });
+                        endAdornmentAction, value: props.value, enableHelpHoverEffect, InputProps: Object.assign(Object.assign({}, params.InputProps), { startAdornment: startAdornment !== null && startAdornment !== void 0 ? startAdornment : (_a = params.InputProps) === null || _a === void 0 ? void 0 : _a.startAdornment, endAdornment: (react_1.default.createElement(react_1.default.Fragment, null,
+                                endAdornment, (_b = params.InputProps) === null || _b === void 0 ? void 0 :
+                                _b.endAdornment)) }) });
                     let tooltipTitle = '';
-                    const inputValue = (_b = (_a = textfieldRef.current) === null || _a === void 0 ? void 0 : _a.value) !== null && _b !== void 0 ? _b : '';
+                    const inputValue = (_d = (_c = textfieldRef.current) === null || _c === void 0 ? void 0 : _c.value) !== null && _d !== void 0 ? _d : '';
                     // Helper to check if a value matches an option
                     const isValueInOptions = (selctedValue) => {
                         if (!selctedValue)
