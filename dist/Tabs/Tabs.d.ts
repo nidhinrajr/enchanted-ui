@@ -1,6 +1,7 @@
 import React from 'react';
 import { TabsProps as MuiTabsProps } from '@mui/material/Tabs';
 interface TabsProps extends MuiTabsProps {
+    disabled?: boolean;
     iconposition?: 'start' | 'top';
     showIcon?: boolean;
     showLabel?: boolean;

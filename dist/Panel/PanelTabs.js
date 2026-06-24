@@ -61,13 +61,12 @@ const PanelTabContainerStyled = (0, styles_1.styled)('div')((props) => {
 });
 const ToggleButtonContainerStyled = (0, styles_1.styled)('div')(() => {
     return {
-        position: 'absolute',
+        position: 'fixed',
         bottom: '0px',
-        padding: '8px 0',
+        padding: '8px 12px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
     };
 });
 const PanelTabsStyled = (0, styles_1.styled)(Tabs_1.default)((props) => {

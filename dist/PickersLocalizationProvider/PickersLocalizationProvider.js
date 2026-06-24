@@ -224,24 +224,24 @@ const verfiyAdapterLocale = (adapterLocale) => {
     }
 };
 const PickersLocalizationProvider = (_a) => {
-    var props = __rest(_a, []);
+    var { adapterLocale: adapterLocaleProp = 'en', onLocaleLoad } = _a, rest = __rest(_a, ["adapterLocale", "onLocaleLoad"]);
     const [adapterLocale, setAdapterLocale] = (0, react_1.useState)('en');
     (0, react_1.useEffect)(() => {
-        if (props.adapterLocale !== undefined && typeof props.adapterLocale === 'string') {
-            const loadDayJsLocale = (dayJsLocal) => __awaiter(void 0, void 0, void 0, function* () {
-                yield DAYJS_LOCALE_PACKAGE[dayJsLocal];
-                dayjs.locale(dayJsLocal);
-                setAdapterLocale(dayJsLocal);
+        if (adapterLocaleProp !== undefined && typeof adapterLocaleProp === 'string') {
+            const loadDayJsLocale = (dayJsLocale) => __awaiter(void 0, void 0, void 0, function* () {
+                yield DAYJS_LOCALE_PACKAGE[dayJsLocale];
+                dayjs.locale(dayJsLocale);
+                setAdapterLocale(dayJsLocale);
+                onLocaleLoad === null || onLocaleLoad === void 0 ? void 0 : onLocaleLoad(dayJsLocale);
             });
-            const locale = (props.adapterLocale !== undefined && !exports.SUPPORTED_LOCALE.includes(props.adapterLocale)) ? 'en' : props.adapterLocale;
+            const locale = (!exports.SUPPORTED_LOCALE.includes(adapterLocaleProp)) ? 'en' : adapterLocaleProp;
             loadDayJsLocale(locale);
         }
-    }, [props.adapterLocale]);
-    verfiyAdapterLocale(props.adapterLocale);
+    }, [adapterLocaleProp, onLocaleLoad]);
+    verfiyAdapterLocale(adapterLocaleProp);
     // Set Monday as the first day of the week in the calendar
     dayjs.Ls[`${adapterLocale}`].weekStart = 1;
-    return react_1.default.createElement(LocalizationProvider_1.LocalizationProvider, Object.assign({}, props, { adapterLocale: adapterLocale, localeText: getLocaleText(props.adapterLocale) }));
+    return react_1.default.createElement(LocalizationProvider_1.LocalizationProvider, Object.assign({}, rest, { adapterLocale: adapterLocale, localeText: getLocaleText(adapterLocaleProp) }));
 };
-PickersLocalizationProvider.defaultProps = {};
 __exportStar(require("@mui/x-date-pickers/LocalizationProvider"), exports);
 exports.default = PickersLocalizationProvider;

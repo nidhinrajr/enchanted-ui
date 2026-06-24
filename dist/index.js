@@ -196,9 +196,9 @@ __exportStar(require("./Tabs"), exports);
 var TimePicker_1 = require("./hidden_components/TimePicker");
 Object.defineProperty(exports, "TimePicker", { enumerable: true, get: function () { return __importDefault(TimePicker_1).default; } });
 __exportStar(require("./hidden_components/TimePicker"), exports);
-var TreeView_1 = require("./hidden_components/TreeView");
+var TreeView_1 = require("./TreeView");
 Object.defineProperty(exports, "TreeView", { enumerable: true, get: function () { return __importDefault(TreeView_1).default; } });
-__exportStar(require("./hidden_components/TreeView"), exports);
+__exportStar(require("./TreeView"), exports);
 /* Place pre-requisite component module exports here below */
 var FormControlLabel_1 = require("./prerequisite_components/FormControlLabel");
 Object.defineProperty(exports, "FormControlLabel", { enumerable: true, get: function () { return __importDefault(FormControlLabel_1).default; } });

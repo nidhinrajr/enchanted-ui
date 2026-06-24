@@ -23,27 +23,34 @@ export interface DatePickerProps<TInputDate, TDate> extends Omit<MuiDatePickerPr
         [key: string]: React.CSSProperties;
     };
     customIcon?: React.ComponentType<SvgIconProps> | undefined;
+    /**
+     * If true, renders a static date picker without input field. Useful for embedded calendar views
+     */
+    staticMode?: boolean;
 }
-declare const DatePicker: {
-    <TInputDate, TDate>({ ...props }: DatePickerProps<TInputDate, TDate>): React.JSX.Element;
-    defaultProps: {
-        margin: string;
-        color: string;
-        size: string;
-        label: string;
-        helperText: string;
-        enableHelpHoverEffect: boolean;
-        helperIconTooltip: string;
-        format: string;
-        unitLabel: string;
-        required: boolean;
-        disabled: boolean;
-        fullWidth: boolean;
-        hiddenLabel: boolean;
-        nonEdit: boolean;
-        showDaysOutsideCurrentMonth: boolean;
-        error: boolean;
-    };
+/**
+ * Default prop values for DatePicker.
+ * Exported for use in Storybook argTypes and story args.
+ */
+export declare const DatePickerDefaults: {
+    margin: "none";
+    color: "primary";
+    size: "medium";
+    label: string;
+    helperText: string;
+    enableHelpHoverEffect: boolean;
+    helperIconTooltip: string;
+    format: string;
+    unitLabel: string;
+    required: boolean;
+    disabled: boolean;
+    fullWidth: boolean;
+    hiddenLabel: boolean;
+    nonEdit: boolean;
+    showDaysOutsideCurrentMonth: boolean;
+    error: boolean;
+    staticMode: boolean;
 };
+declare const DatePicker: <TInputDate, TDate>({ customStyles, staticMode, margin, color, size, label, helperText, enableHelpHoverEffect, helperIconTooltip, format, unitLabel, required, disabled, fullWidth, hiddenLabel, nonEdit, error, actionProps, customIcon, value, onViewChange, onAccept, ...muiProps }: DatePickerProps<TInputDate, TDate>) => React.JSX.Element;
 export * from '@mui/x-date-pickers/DatePicker';
 export default DatePicker;
