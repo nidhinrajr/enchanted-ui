@@ -34,3 +34,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const DatePicker_1 = __importDefault(require("./DatePicker"));
 exports.default = DatePicker_1.default;
 __exportStar(require("./DatePicker"), exports);
+__exportStar(require("@mui/x-date-pickers/StaticDatePicker"), exports);
