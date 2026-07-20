@@ -1,6 +1,6 @@
 "use strict";
 /* ======================================================================== *
- * Copyright 2024, 2025 HCL America Inc.                                    *
+ * Copyright 2024, 2026 HCL America Inc.                                    *
  * Licensed under the Apache License, Version 2.0 (the "License");          *
  * you may not use this file except in compliance with the License.         *
  * You may obtain a copy of the License at                                  *
@@ -151,6 +151,11 @@ const StyledList = (0, material_1.styled)(List_1.default)((props) => {
                                 background: 'none',
                             },
                         } }),
+                },
+                '& .MuiListItemSecondaryAction-root': {
+                    '.IconButtonMainContainer': {
+                        margin: '0',
+                    },
                 },
                 '&:hover .MuiListItemText-primary, &:hover .MuiListItemText-secondary': {
                     width: 'unset',
@@ -381,12 +386,11 @@ const ProgressItems = (props) => {
                             react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === ProgressBar_1.ProgressItemType.Folder ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px' } }))) : (react_1.default.createElement(ListItemAvatar_1.default, null,
                         react_1.default.createElement(Avatar_1.default, { iconImage: queueItem.type === 'folder' ? react_1.default.createElement(folder_1.default, null) : iconImage, color: Avatar_1.AvatarColors.DEFAULT, variant: "rounded", type: Avatar_1.AvatarTypes.ICON, style: { height: '24px', width: '24px', opacity: 0.38 } }))),
                     queueItem.status !== ProgressBar_1.EnumUploadStatus.PENDING
-                        ? (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", placement: "left", PopperProps: {
-                                    disablePortal: true,
-                                }, componentsProps: {
+                        ? (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", placement: "left", componentsProps: {
                                     tooltip: {
                                         sx: {
-                                            whiteSpace: 'nowrap',
+                                            maxWidth: '252px',
+                                            wordBreak: 'break-all',
                                         },
                                     },
                                 } },
@@ -399,9 +403,7 @@ const ProgressItems = (props) => {
                                     react_1.default.createElement("span", { "data-testid": "failed-status-label", style: {
                                             maxWidth: showLearnMoreButton ? '134px' : '252px',
                                         } }, !queueItem.message ? translation === null || translation === void 0 ? void 0 : translation.failureLabel : queueItem.message))),
-                                showLearnMoreButton && (react_1.default.createElement(Tooltip_1.default, { title: literals.learnMoreLabel, tooltipsize: "small", placement: "left", PopperProps: {
-                                        disablePortal: true,
-                                    }, componentsProps: {
+                                showLearnMoreButton && (react_1.default.createElement(Tooltip_1.default, { title: literals.learnMoreLabel, tooltipsize: "small", placement: "left", componentsProps: {
                                         tooltip: {
                                             sx: {
                                                 whiteSpace: 'nowrap',
@@ -413,8 +415,13 @@ const ProgressItems = (props) => {
                                                 learnMoreOnFailure(event);
                                             }
                                         }, "data-testid": "learn-more-button" },
-                                        react_1.default.createElement(Typography_1.default, { variant: "caption" }, literals.learnMoreLabel)))))) })) : (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", placement: "left", PopperProps: {
-                                disablePortal: true,
+                                        react_1.default.createElement(Typography_1.default, { variant: "caption" }, literals.learnMoreLabel)))))) })) : (react_1.default.createElement(ListItemText_1.default, { primary: (react_1.default.createElement(Tooltip_1.default, { title: queueItem.name, tooltipsize: "small", placement: "left", componentsProps: {
+                                tooltip: {
+                                    sx: {
+                                        maxWidth: '252px',
+                                        wordBreak: 'break-all',
+                                    },
+                                },
                             } },
                             react_1.default.createElement("span", { "data-testid": "pending-item-text-primary" }, queueItem.name))), secondary: (react_1.default.createElement(react_1.default.Fragment, null,
                             queueItem.type !== 'folder' && (react_1.default.createElement("span", { style: { [isRTL ? 'marginLeft' : 'marginRight']: '8px' }, className: "file-size", "data-testid": "pending-item-text-secondary" }, `${fileSizeValueConverter(queueItem.size)}`)),
