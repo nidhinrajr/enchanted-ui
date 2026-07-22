@@ -45,6 +45,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMuiAutocompleteThemeOverrides = void 0;
 const react_1 = __importDefault(require("react"));
 const Autocomplete_1 = __importDefault(require("@mui/material/Autocomplete"));
+const material_1 = require("@mui/material");
 const caret__down_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/caret--down"));
 const close_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/close"));
 const FormHelperText_1 = __importDefault(require("@mui/material/FormHelperText"));
@@ -141,6 +142,9 @@ const Autocomplete = (_a) => {
         if (props.endAdornment) {
             iconCount += getIconsCount(props.endAdornment);
         }
+        if (endAdornmentAction) {
+            iconCount += getIconsCount(endAdornmentAction);
+        }
         // Check for freeSolo first because if it's true, then the caret down icon will not be shown.
         iconCount += props.freeSolo ? 0 : 1;
         // Check if the component is disabled or disableClearable is true.
@@ -156,8 +160,8 @@ const Autocomplete = (_a) => {
         // Each icon is assumed to be 21px wide. If the parent width is very small (<= 150px), subtract 5px for tighter spacing.
         const iconWidth = ((iconCount) * 21 - (parentWidth <= 150 ? 5 : 0));
         return Math.max(iconWidth, 0);
-    }, [props.endAdornment, props.error, props.freeSolo, props.disabled, textfieldRef]);
-    const handleChange = (event, value) => {
+    }, [props.endAdornment, endAdornmentAction, props.error, props.freeSolo, props.disabled, props.disableClearable, props.value, getIconsCount]);
+    const handleChange = (event, value, reason, details) => {
         // Value can be an option from the list or null if cleared
         setSelectedOption(value);
         if (textfieldRef.current) {
@@ -165,7 +169,7 @@ const Autocomplete = (_a) => {
         }
         // Call the existing onChange from props if it exists
         if (rest.onChange) {
-            rest.onChange(event, value, 'selectOption');
+            rest.onChange(event, value, reason, details);
         }
     };
     const handleInputChange = (event, inputValue, reason) => {
@@ -196,11 +200,71 @@ const Autocomplete = (_a) => {
                         helperIconTooltip,
                         actionProps,
                         nonEdit, size: props.size, autoFocus: props.autoFocus, renderNonEditInput,
-                        endAdornmentAction, value: props.value, enableHelpHoverEffect, InputProps: Object.assign(Object.assign({}, params.InputProps), { startAdornment: startAdornment !== null && startAdornment !== void 0 ? startAdornment : (_a = params.InputProps) === null || _a === void 0 ? void 0 : _a.startAdornment, endAdornment: (react_1.default.createElement(react_1.default.Fragment, null,
-                                endAdornment, (_b = params.InputProps) === null || _b === void 0 ? void 0 :
-                                _b.endAdornment)) }) });
+                        endAdornmentAction, value: props.value, enableHelpHoverEffect, InputProps: Object.assign(Object.assign({}, params.InputProps), { startAdornment: startAdornment
+                                ? (react_1.default.createElement(react_1.default.Fragment, null,
+                                    react_1.default.createElement(material_1.InputAdornment, { position: "start" }, startAdornment), (_a = params.InputProps) === null || _a === void 0 ? void 0 :
+                                    _a.startAdornment))
+                                : (_b = params.InputProps) === null || _b === void 0 ? void 0 : _b.startAdornment, endAdornment: (react_1.default.createElement(react_1.default.Fragment, null,
+                                (() => {
+                                    var _a;
+                                    const defaultEndAdornment = (_a = params.InputProps) === null || _a === void 0 ? void 0 : _a.endAdornment;
+                                    if (endAdornmentAction && react_1.default.isValidElement(defaultEndAdornment)) {
+                                        const defaultEndAdornmentElement = defaultEndAdornment;
+                                        return react_1.default.cloneElement(defaultEndAdornmentElement, {
+                                            children: (react_1.default.createElement(react_1.default.Fragment, null,
+                                                defaultEndAdornmentElement.props.children,
+                                                react_1.default.createElement("span", { className: "MuiAutocomplete-customEndAction" }, endAdornmentAction))),
+                                        });
+                                    }
+                                    return (react_1.default.createElement(react_1.default.Fragment, null,
+                                        defaultEndAdornment,
+                                        endAdornmentAction ? react_1.default.createElement("span", { className: "MuiAutocomplete-customEndAction" }, endAdornmentAction) : null));
+                                })(),
+                                endAdornment)) }) });
                     let tooltipTitle = '';
                     const inputValue = (_d = (_c = textfieldRef.current) === null || _c === void 0 ? void 0 : _c.value) !== null && _d !== void 0 ? _d : '';
+                    const getPathSegmentLabel = (segment) => {
+                        if (typeof segment === 'string') {
+                            return segment;
+                        }
+                        if (typeof segment === 'object' && segment !== null) {
+                            const segmentRecord = segment;
+                            const labelCandidate = segmentRecord.label;
+                            const titleCandidate = segmentRecord.title;
+                            const valueCandidate = segmentRecord.value;
+                            // Prefer nested title.value from path nodes for consistent breadcrumb labels.
+                            if (typeof titleCandidate === 'object' && titleCandidate !== null) {
+                                const titleValueCandidate = titleCandidate.value;
+                                if (typeof titleValueCandidate === 'string')
+                                    return titleValueCandidate;
+                            }
+                            if (typeof labelCandidate === 'string')
+                                return labelCandidate;
+                            if (typeof titleCandidate === 'string')
+                                return titleCandidate;
+                            if (typeof valueCandidate === 'string')
+                                return valueCandidate;
+                        }
+                        return '';
+                    };
+                    // Build full breadcrumb-like text from option.path.
+                    const getFullPathLabel = (option) => {
+                        if (typeof option !== 'object' || option === null) {
+                            return '';
+                        }
+                        const optionRecord = option;
+                        const pathValue = optionRecord.path;
+                        if (Array.isArray(pathValue)) {
+                            const segments = pathValue
+                                .map((segment) => { return getPathSegmentLabel(segment).trim(); })
+                                .filter((segment) => { return Boolean(segment); });
+                            return segments.join(' / ');
+                        }
+                        if (typeof pathValue === 'string') {
+                            return pathValue;
+                        }
+                        return '';
+                    };
                     // Helper to check if a value matches an option
                     const isValueInOptions = (selctedValue) => {
                         if (!selctedValue)
@@ -216,9 +280,13 @@ const Autocomplete = (_a) => {
                     };
                     const hasSelectedValue = selectedOption && typeof selectedOption === 'object' && 'label' in selectedOption;
                     const selectedValue = hasSelectedValue ? selectedOption.label : selectedOption;
+                    const selectedPathValue = getFullPathLabel(selectedOption);
+                    const selectedTooltipValue = selectedPathValue && selectedPathValue.length > selectedValue.length
+                        ? selectedPathValue
+                        : (selectedValue || selectedPathValue || '');
                     // Checking for selectedOption covers cases where user selects from dropdown or clears input
-                    if (selectedOption && isValueOverFlowing && isValueInOptions(selectedValue)) {
-                        tooltipTitle = selectedValue;
+                    if (selectedOption && isValueOverFlowing) {
+                        tooltipTitle = selectedTooltipValue;
                         // Checking for inputValue covers cases where user types a value and then selects it from the dropdown
                     }
                     else if (!selectedOption && isValueOverFlowing && isValueInOptions(inputValue)) {
@@ -288,7 +356,7 @@ const getMuiAutocompleteThemeOverrides = () => {
                                     '.MuiAutocomplete-endAdornment': {
                                         right: '8px',
                                         '.MuiButtonBase-root': {
-                                            top: '3px',
+                                            top: '-1px',
                                             // eslint-why - a nested ternary is needed
                                             // eslint-disable-next-line no-nested-ternary
                                             margin: ownerState.error ? (ownerState.freeSolo ? '0px 30px 0px 4px' : '0px 36px 0px 4px') : '0px 6px 0px 4px',
@@ -299,6 +367,17 @@ const getMuiAutocompleteThemeOverrides = () => {
                                                     height: '16px',
                                                     width: '16px',
                                                 },
+                                            },
+                                        },
+                                        '.MuiAutocomplete-customEndAction': {
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            marginLeft: '4px',
+                                            '.MuiButtonBase-root': {
+                                                top: '2px',
+                                                margin: '0px',
+                                                padding: '0px',
                                             },
                                         },
                                     },

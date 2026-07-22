@@ -45,14 +45,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const Badge_1 = __importDefault(require("@mui/material/Badge"));
 const Badge = (_a) => {
-    var props = __rest(_a, []);
-    return react_1.default.createElement(Badge_1.default, Object.assign({}, props));
+    var { color = 'primary', overlap = 'rectangular', variant = 'standard' } = _a, props = __rest(_a, ["color", "overlap", "variant"]);
+    return react_1.default.createElement(Badge_1.default, Object.assign({ color: color, overlap: overlap, variant: variant }, props));
 };
-const defaultProps = {
-    color: 'primary',
-    overlap: 'rectangular',
-    variant: 'standard',
-};
-Badge.defaultProps = defaultProps;
 __exportStar(require("@mui/material/Badge"), exports);
 exports.default = Badge;
