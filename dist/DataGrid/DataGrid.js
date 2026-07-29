@@ -685,7 +685,6 @@ const DataGrid = (_a) => {
         ColumnSortedDescendingIcon: ColumnSortedDescendingIcon_1.default,
         ColumnResizeIcon: DataGridDivider_1.default,
         Pagination: DataGridTablePagination,
-        // ColumnMenu: ExtendedGridColumnMenu, commented out until https://jira.cwp.pnp-hcl.com/browse/DXQ-30099 implementation starts
     };
     return (react_1.default.createElement(StyledDataGrid, Object.assign({}, props, { focusedRow: focusRow, 
         // For list of components that can be overriden with custom components inside DataGrid - See https://mui.com/x/api/data-grid/data-grid/#slots

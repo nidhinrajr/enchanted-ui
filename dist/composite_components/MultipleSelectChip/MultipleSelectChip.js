@@ -13,29 +13,6 @@
  * See the License for the specific language governing permissions and      *
  * limitations under the License.                                           *
  * ======================================================================== */
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -51,13 +28,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const React = __importStar(require("react"));
+const react_1 = __importDefault(require("react"));
 const close__filled_1 = __importDefault(require("@hcl-software/enchanted-icons/dist/carbon/es/close--filled"));
-const Autocomplete_1 = __importDefault(require("../../Autocomplete"));
+const Autocomplete_1 = __importDefault(require("../../Autocomplete/Autocomplete"));
 const colors_1 = require("../../colors");
 const MultipleSelectChip = (_a) => {
     var props = __rest(_a, []);
-    const { emptyOptions } = props, rest = __rest(props, ["emptyOptions"]);
+    const { emptyOptions, listboxBanner } = props, rest = __rest(props, ["emptyOptions", "listboxBanner"]);
     const getMuiInputBasePaddingRight = () => {
         if (props.error && !props.emptyOptions) {
             return '82px !important';
@@ -100,7 +77,7 @@ const MultipleSelectChip = (_a) => {
         },
     };
     const sxProps = Object.assign(Object.assign({}, sxDefaultProps), rest.sx);
-    return (React.createElement(Autocomplete_1.default, Object.assign({}, rest, { freeSolo: emptyOptions, options: emptyOptions ? [] : rest.options, sx: sxProps, multiple: true, clearIcon: React.createElement(close__filled_1.default, { color: "action" }) })));
+    return (react_1.default.createElement(Autocomplete_1.default, Object.assign({}, rest, { freeSolo: emptyOptions, options: emptyOptions ? [] : rest.options, sx: sxProps, multiple: true, clearIcon: react_1.default.createElement(close__filled_1.default, { color: "action" }), listboxBanner: listboxBanner })));
 };
 MultipleSelectChip.defaultProps = {
     emptyOptions: false,
